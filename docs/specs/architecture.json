@@ -1,0 +1,28 @@
+{
+  "pattern": "REST API with PostgreSQL",
+  "caching": "Redis for search suggestions, product filters, session management, and frequently accessed data",
+  "fileStorage": "S3-compatible storage for product images, user avatars, and banner assets",
+  "search": "PostgreSQL full-text search with GIN indexes for product names and descriptions",
+  "recommendations": [
+    "Implement database connection pooling for high concurrent requests",
+    "Use CDN for image delivery and static assets",
+    "Implement server-side pagination with cursor-based pagination for large datasets",
+    "Use database partitioning for analytics_events table by timestamp",
+    "Implement API rate limiting per IP/user to prevent abuse",
+    "Add database read replicas for analytics and search queries",
+    "Implement proper error handling and logging for all endpoints",
+    "Use database transactions for operations that modify multiple tables",
+    "Implement proper input validation and sanitization",
+    "Add monitoring and alerting for API performance and errors",
+    "Consider implementing GraphQL for more flexible frontend queries",
+    "Use Redis for caching frequent filter combinations and search results",
+    "Implement automated database backups and disaster recovery",
+    "Add comprehensive API documentation with examples",
+    "Implement proper CORS configuration for frontend integration",
+    "Add email verification and password reset functionality",
+    "Implement user session management and concurrent session limits",
+    "Add product inventory management and low stock alerts",
+    "Implement order management system for complete e-commerce flow",
+    "Add payment gateway integration for checkout process"
+  ]
+}

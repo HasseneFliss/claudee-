@@ -1,0 +1,33 @@
+{
+  "strategy": "JWT",
+  "tokenExpiry": "15m",
+  "refreshTokenExpiry": "7d",
+  "roles": [
+    "admin",
+    "user",
+    "guest"
+  ],
+  "permissions": {
+    "admin": [
+      "read:all",
+      "write:all",
+      "delete:all"
+    ],
+    "user": [
+      "read:products",
+      "read:categories",
+      "read:user_preferences",
+      "write:user_preferences",
+      "write:analytics",
+      "write:cart",
+      "write:wishlist",
+      "read:profile",
+      "write:profile"
+    ],
+    "guest": [
+      "read:products",
+      "read:categories",
+      "write:analytics"
+    ]
+  }
+}
