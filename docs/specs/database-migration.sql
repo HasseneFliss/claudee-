@@ -5,256 +5,126 @@
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email VARCHAR(255) UNIQUE NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  phone VARCHAR(20),
-  date_of_birth DATE,
-  avatar VARCHAR(500),
-  email_verified BOOLEAN NOT NULL DEFAULT false,
-  is_active BOOLEAN NOT NULL DEFAULT true,
-  role VARCHAR(20) NOT NULL DEFAULT user,
-  last_login TIMESTAMP,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  password_hash VARCHAR(255),
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email_verified BOOLEAN,
+  email_verified_at TIMESTAMP,
+  role VARCHAR(50) DEFAULT user,
+  account_locked_until TIMESTAMP,
+  failed_login_attempts INTEGER,
+  marketing_opt_in BOOLEAN,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  last_login_at TIMESTAMP
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users (email);
-CREATE INDEX IF NOT EXISTS idx_users_role ON users (role);
+CREATE INDEX IF NOT EXISTS idx_users_email_verified ON users (email_verified);
+CREATE INDEX IF NOT EXISTS idx_users_created_at ON users (created_at);
+CREATE INDEX IF NOT EXISTS idx_users_last_login_at ON users (last_login_at);
 
--- Table: products
-CREATE TABLE IF NOT EXISTS products (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(255) NOT NULL,
-  description TEXT,
-  price DECIMAL(10,2) NOT NULL,
-  original_price DECIMAL(10,2),
-  discount DECIMAL(5,2) DEFAULT 0,
-  currency VARCHAR(3) NOT NULL DEFAULT USD,
-  image_url VARCHAR(500) NOT NULL,
-  image_urls JSON,
-  category_id UUID NOT NULL,
-  brand_id UUID,
-  rating DECIMAL(3,2) DEFAULT 0,
-  review_count INTEGER NOT NULL DEFAULT 0,
-  in_stock BOOLEAN NOT NULL DEFAULT true,
-  stock_count INTEGER NOT NULL DEFAULT 0,
-  tags JSON,
-  featured BOOLEAN NOT NULL DEFAULT false,
-  specifications JSON,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_products_category_id ON products (category_id);
-CREATE INDEX IF NOT EXISTS idx_products_brand_id ON products (brand_id);
-CREATE INDEX IF NOT EXISTS idx_products_price ON products (price);
-CREATE INDEX IF NOT EXISTS idx_products_rating ON products (rating);
-CREATE INDEX IF NOT EXISTS idx_products_featured ON products (featured);
-CREATE INDEX IF NOT EXISTS idx_products_in_stock ON products (in_stock);
-CREATE INDEX IF NOT EXISTS idx_products_name ON products (name);
-CREATE INDEX IF NOT EXISTS idx_products_created_at ON products (created_at);
-
--- Table: categories
-CREATE TABLE IF NOT EXISTS categories (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(100) NOT NULL,
-  slug VARCHAR(100) UNIQUE NOT NULL,
-  description VARCHAR(500),
-  image_url VARCHAR(500),
-  parent_id UUID,
-  featured BOOLEAN NOT NULL DEFAULT false,
-  sort_order INTEGER NOT NULL DEFAULT 0,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_categories_slug ON categories (slug);
-CREATE INDEX IF NOT EXISTS idx_categories_parent_id ON categories (parent_id);
-CREATE INDEX IF NOT EXISTS idx_categories_featured ON categories (featured);
-CREATE INDEX IF NOT EXISTS idx_categories_sort_order ON categories (sort_order);
-
--- Table: brands
-CREATE TABLE IF NOT EXISTS brands (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(100) NOT NULL,
-  slug VARCHAR(100) UNIQUE NOT NULL,
-  description VARCHAR(500),
-  logo_url VARCHAR(500),
-  website_url VARCHAR(500),
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_brands_slug ON brands (slug);
-CREATE INDEX IF NOT EXISTS idx_brands_name ON brands (name);
-
--- Table: product_variants
-CREATE TABLE IF NOT EXISTS product_variants (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  product_id UUID NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  sku VARCHAR(100) UNIQUE,
-  attributes JSON,
-  in_stock BOOLEAN NOT NULL DEFAULT true,
-  stock_count INTEGER NOT NULL DEFAULT 0,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_product_variants_product_id ON product_variants (product_id);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_product_variants_sku ON product_variants (sku);
-
--- Table: product_reviews
-CREATE TABLE IF NOT EXISTS product_reviews (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  product_id UUID NOT NULL,
-  user_id UUID NOT NULL,
-  user_name VARCHAR(100) NOT NULL,
-  rating INTEGER NOT NULL,
-  comment TEXT NOT NULL,
-  verified BOOLEAN NOT NULL DEFAULT false,
-  helpful INTEGER NOT NULL DEFAULT 0,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_product_reviews_product_id ON product_reviews (product_id);
-CREATE INDEX IF NOT EXISTS idx_product_reviews_user_id ON product_reviews (user_id);
-CREATE INDEX IF NOT EXISTS idx_product_reviews_rating ON product_reviews (rating);
-CREATE INDEX IF NOT EXISTS idx_product_reviews_created_at ON product_reviews (created_at);
-
--- Table: carts
-CREATE TABLE IF NOT EXISTS carts (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID UNIQUE NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_carts_user_id ON carts (user_id);
-
--- Table: cart_items
-CREATE TABLE IF NOT EXISTS cart_items (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  cart_id UUID NOT NULL,
-  product_id UUID NOT NULL,
-  variant_id UUID,
-  quantity INTEGER NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  added_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_cart_items_cart_id ON cart_items (cart_id);
-CREATE INDEX IF NOT EXISTS idx_cart_items_product_id ON cart_items (product_id);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_cart_items_cart_id_product_id_variant_id ON cart_items (cart_id, product_id, variant_id);
-
--- Table: wishlists
-CREATE TABLE IF NOT EXISTS wishlists (
+-- Table: oauth_accounts
+CREATE TABLE IF NOT EXISTS oauth_accounts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL,
-  product_id UUID NOT NULL,
-  added_at TIMESTAMP NOT NULL DEFAULT NOW()
+  provider VARCHAR(50) NOT NULL,
+  provider_user_id VARCHAR(255) NOT NULL,
+  provider_email VARCHAR(255) NOT NULL,
+  access_token TEXT,
+  refresh_token TEXT,
+  token_expires_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_wishlists_user_id ON wishlists (user_id);
-CREATE INDEX IF NOT EXISTS idx_wishlists_product_id ON wishlists (product_id);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_wishlists_user_id_product_id ON wishlists (user_id, product_id);
-CREATE INDEX IF NOT EXISTS idx_wishlists_added_at ON wishlists (added_at);
+CREATE INDEX IF NOT EXISTS idx_oauth_accounts_user_id ON oauth_accounts (user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_oauth_accounts_provider_provider_user_id ON oauth_accounts (provider, provider_user_id);
+CREATE INDEX IF NOT EXISTS idx_oauth_accounts_provider_email ON oauth_accounts (provider_email);
 
--- Table: banners
-CREATE TABLE IF NOT EXISTS banners (
+-- Table: email_verification_tokens
+CREATE TABLE IF NOT EXISTS email_verification_tokens (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  title VARCHAR(200) NOT NULL,
-  subtitle VARCHAR(300),
-  description VARCHAR(500),
-  image_url VARCHAR(500) NOT NULL,
-  mobile_image_url VARCHAR(500),
-  link_url VARCHAR(500),
-  link_text VARCHAR(50),
-  position VARCHAR(20) NOT NULL,
-  active BOOLEAN NOT NULL DEFAULT true,
-  start_date TIMESTAMP,
-  end_date TIMESTAMP,
-  sort_order INTEGER NOT NULL DEFAULT 0,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  user_id UUID NOT NULL,
+  token VARCHAR(255) UNIQUE NOT NULL,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_banners_position ON banners (position);
-CREATE INDEX IF NOT EXISTS idx_banners_active ON banners (active);
-CREATE INDEX IF NOT EXISTS idx_banners_sort_order ON banners (sort_order);
-CREATE INDEX IF NOT EXISTS idx_banners_start_date_end_date ON banners (start_date, end_date);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_email_verification_tokens_token ON email_verification_tokens (token);
+CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_user_id ON email_verification_tokens (user_id);
+CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_expires_at ON email_verification_tokens (expires_at);
+CREATE INDEX IF NOT EXISTS idx_email_verification_tokens_used ON email_verification_tokens (used);
 
--- Table: user_preferences
-CREATE TABLE IF NOT EXISTS user_preferences (
+-- Table: password_reset_tokens
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID UNIQUE NOT NULL,
-  view_mode VARCHAR(10) NOT NULL DEFAULT grid,
-  items_per_page INTEGER NOT NULL DEFAULT 20,
-  default_sort VARCHAR(20) NOT NULL DEFAULT created_at,
-  default_sort_order VARCHAR(4) NOT NULL DEFAULT desc,
-  saved_filters JSON,
-  currency VARCHAR(3) NOT NULL DEFAULT USD,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  user_id UUID NOT NULL,
+  token VARCHAR(255) UNIQUE NOT NULL,
+  expires_at TIMESTAMP NOT NULL,
+  used BOOLEAN,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_preferences_user_id ON user_preferences (user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_password_reset_tokens_token ON password_reset_tokens (token);
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_user_id ON password_reset_tokens (user_id);
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_expires_at ON password_reset_tokens (expires_at);
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_used ON password_reset_tokens (used);
 
 -- Table: refresh_tokens
 CREATE TABLE IF NOT EXISTS refresh_tokens (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL,
-  token VARCHAR(255) UNIQUE NOT NULL,
+  token_hash VARCHAR(255) UNIQUE NOT NULL,
+  device_info TEXT,
+  ip_address INET,
+  user_agent TEXT,
+  location VARCHAR(255),
   expires_at TIMESTAMP NOT NULL,
-  revoked BOOLEAN NOT NULL DEFAULT false,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+  revoked BOOLEAN,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  last_used_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_refresh_tokens_token ON refresh_tokens (token);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_refresh_tokens_token_hash ON refresh_tokens (token_hash);
 CREATE INDEX IF NOT EXISTS idx_refresh_tokens_user_id ON refresh_tokens (user_id);
 CREATE INDEX IF NOT EXISTS idx_refresh_tokens_expires_at ON refresh_tokens (expires_at);
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_revoked ON refresh_tokens (revoked);
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_created_at ON refresh_tokens (created_at);
+CREATE INDEX IF NOT EXISTS idx_refresh_tokens_last_used_at ON refresh_tokens (last_used_at);
 
--- Table: search_suggestions
-CREATE TABLE IF NOT EXISTS search_suggestions (
+-- Table: login_attempts
+CREATE TABLE IF NOT EXISTS login_attempts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  text VARCHAR(255) NOT NULL,
-  type VARCHAR(20) NOT NULL,
-  count INTEGER NOT NULL DEFAULT 0,
-  image_url VARCHAR(500),
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+  email VARCHAR(255) NOT NULL,
+  ip_address INET NOT NULL,
+  user_agent TEXT,
+  successful BOOLEAN NOT NULL,
+  failure_reason VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_search_suggestions_text ON search_suggestions (text);
-CREATE INDEX IF NOT EXISTS idx_search_suggestions_type ON search_suggestions (type);
-CREATE INDEX IF NOT EXISTS idx_search_suggestions_count ON search_suggestions (count);
+CREATE INDEX IF NOT EXISTS idx_login_attempts_email_created_at ON login_attempts (email, created_at);
+CREATE INDEX IF NOT EXISTS idx_login_attempts_ip_address_created_at ON login_attempts (ip_address, created_at);
+CREATE INDEX IF NOT EXISTS idx_login_attempts_successful ON login_attempts (successful);
+CREATE INDEX IF NOT EXISTS idx_login_attempts_created_at ON login_attempts (created_at);
 
--- Table: analytics_events
-CREATE TABLE IF NOT EXISTS analytics_events (
+-- Table: audit_logs
+CREATE TABLE IF NOT EXISTS audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  event_type VARCHAR(50) NOT NULL,
-  timestamp TIMESTAMP NOT NULL,
   user_id UUID,
-  session_id VARCHAR(100),
-  product_id UUID,
-  category_id UUID,
-  search_query VARCHAR(255),
-  filters JSON,
-  sort_by VARCHAR(50),
-  view_mode VARCHAR(10),
-  device_type VARCHAR(10),
-  metadata JSON,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+  action VARCHAR(100) NOT NULL,
+  resource VARCHAR(100),
+  resource_id VARCHAR(255),
+  details JSONB,
+  ip_address INET,
+  user_agent TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_analytics_events_event_type ON analytics_events (event_type);
-CREATE INDEX IF NOT EXISTS idx_analytics_events_timestamp ON analytics_events (timestamp);
-CREATE INDEX IF NOT EXISTS idx_analytics_events_user_id ON analytics_events (user_id);
-CREATE INDEX IF NOT EXISTS idx_analytics_events_session_id ON analytics_events (session_id);
-CREATE INDEX IF NOT EXISTS idx_analytics_events_product_id ON analytics_events (product_id);
-CREATE INDEX IF NOT EXISTS idx_analytics_events_category_id ON analytics_events (category_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_user_id_created_at ON audit_logs (user_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_action_created_at ON audit_logs (action, created_at);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_resource_resource_id ON audit_logs (resource, resource_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at ON audit_logs (created_at);
 
