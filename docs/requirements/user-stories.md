@@ -2,382 +2,416 @@
 
 ## Summary
 
-Comprehensive product requirements for a responsive e-commerce platform featuring adaptive homepage design, advanced product discovery with grid/list views, intelligent search with instant suggestions, and comprehensive filtering/sorting capabilities. The solution prioritizes mobile-first design, accessibility, and performance optimization to deliver seamless shopping experiences across all devices and user needs.
+Comprehensive product requirements for a secure, user-friendly authentication system for Next.js e-commerce platform. Includes email/password authentication, Google OAuth, password reset, email verification, JWT token management, and extensive security features. Covers 24 detailed user stories spanning core functionality, security, accessibility, performance, and compliance requirements.
 
 ## Stories
 
-### US-001: Responsive Homepage Layout
+### US-001: User Registration with Email/Password
 
 **Priority:** critical
 **Story Points:** 8
 
 **Description:**
-As a user accessing from any device, I want the homepage to adapt to my screen size, so that I can easily browse featured content and navigate the site
+As a new customer, I want to create an account with my email and password, so that I can make purchases and track my orders
 
 **Acceptance Criteria:**
-- [ ] Given I access the homepage on mobile (320px-767px), when the page loads, then the layout stacks vertically with single-column content
-- [ ] Given I access the homepage on tablet (768px-1023px), when the page loads, then the layout shows 2-column grid for featured products
-- [ ] Given I access the homepage on desktop (1024px+), when the page loads, then the layout shows full multi-column design with sidebar
-- [ ] Given I rotate my device, when orientation changes, then the layout adapts within 0.3 seconds
-- [ ] Given I resize browser window, when width changes, then breakpoints trigger smoothly without horizontal scroll
+- [ ] Given I am on the registration page, when I enter a valid email and password meeting requirements (8+ chars, 1 uppercase, 1 number, 1 special char), then my account is created successfully
+- [ ] Given I enter an email that already exists, when I submit, then I see error message 'Email already registered. Try logging in instead.'
+- [ ] Given I enter a password not meeting requirements, when I submit, then I see specific validation errors for each missing requirement
+- [ ] Given I complete valid registration, when account is created, then I receive a verification email within 2 minutes
+- [ ] Given I submit registration form, when there's a server error, then I see user-friendly error message and form data is preserved
+- [ ] Given I am on mobile device, when I register, then keyboard shows email type for email field and secure text entry for password
+- [ ] Given I complete registration, when I'm redirected, then I land on email verification pending page with resend option
 
-### US-002: Homepage Hero Banner Display
+### US-002: Email Verification Process
 
-**Priority:** high
+**Priority:** critical
 **Story Points:** 5
 
 **Description:**
-As a visitor, I want to see attractive hero banners showcasing promotions and featured products, so that I can discover current offers and trending items
+As a newly registered user, I want to verify my email address through a secure link, so that my account is fully activated and secure
 
 **Acceptance Criteria:**
-- [ ] Given I visit the homepage, when the page loads, then I see a prominent hero banner with high-quality imagery
-- [ ] Given there are multiple banners, when I wait 5 seconds, then the banner automatically advances to the next one
-- [ ] Given I'm on mobile, when viewing banners, then I can swipe left/right to navigate between them
-- [ ] Given I click on a banner, when it loads, then I'm taken to the relevant product or category page
-- [ ] Given banners are loading, when connection is slow, then I see a loading placeholder with consistent dimensions
+- [ ] Given I receive verification email, when I click the verification link, then my email is verified and I'm redirected to login page with success message
+- [ ] Given verification link is older than 24 hours, when I click it, then I see expired link message with option to resend
+- [ ] Given I try to login with unverified email, when I submit credentials, then I see message 'Please verify your email first' with resend option
+- [ ] Given I click resend verification, when I'm on cooldown period (5 mins), then I see countdown timer
+- [ ] Given verification link is malformed or tampered, when I click it, then I see security error message
+- [ ] Given I verify email successfully, when I login immediately after, then I'm logged in without additional verification
+- [ ] Given I'm already verified, when I click verification link again, then I see 'Email already verified' message
 
-### US-003: Featured Products Section
+### US-003: User Login with Email/Password
 
 **Priority:** critical
 **Story Points:** 8
 
 **Description:**
-As a shopper, I want to see featured products prominently displayed on the homepage, so that I can quickly discover popular or recommended items
+As a registered customer, I want to login with my email and password, so that I can access my account and make purchases
 
 **Acceptance Criteria:**
-- [ ] Given I'm on the homepage, when I scroll down, then I see a clearly labeled 'Featured Products' section
-- [ ] Given I'm on mobile, when viewing featured products, then I see 1-2 products per row with horizontal scrolling
-- [ ] Given I'm on desktop, when viewing featured products, then I see 4-6 products per row in a grid layout
-- [ ] Given I hover over a product (desktop), when mouse enters product area, then I see additional details overlay
-- [ ] Given I tap a product (mobile), when I tap once, then I see quick preview, when I tap again, then I navigate to product page
+- [ ] Given I have verified credentials, when I enter correct email and password, then I'm logged in and redirected to dashboard
+- [ ] Given I enter incorrect credentials, when I submit, then I see generic error 'Invalid email or password' (no indication which is wrong)
+- [ ] Given I enter unregistered email, when I submit, then I see same generic error message for security
+- [ ] Given I have unverified account, when I try to login, then I see verification required message with resend option
+- [ ] Given I'm on mobile, when I login, then keyboard shows email type and secure password entry
+- [ ] Given I fail login 5 times, when I try again, then account is temporarily locked for 15 minutes
+- [ ] Given I login successfully, when JWT token is generated, then it contains user role and expires in 24 hours
+- [ ] Given I'm already logged in, when I visit login page, then I'm redirected to dashboard
 
-### US-004: Category Navigation Display
-
-**Priority:** critical
-**Story Points:** 5
-
-**Description:**
-As a user, I want to see main product categories clearly displayed on the homepage, so that I can quickly navigate to products I'm interested in
-
-**Acceptance Criteria:**
-- [ ] Given I'm on the homepage, when I look for navigation, then I see main categories displayed prominently
-- [ ] Given I'm on mobile, when viewing categories, then I see a horizontal scrollable list of category cards
-- [ ] Given I'm on desktop, when viewing categories, then I see a grid of category tiles with icons and names
-- [ ] Given I click on a category, when it loads, then I'm taken to the category page with relevant filters pre-applied
-- [ ] Given categories have subcategories, when I hover/tap on a category, then I see a dropdown/expandable list of subcategories
-
-### US-005: Product Listing Grid View
-
-**Priority:** critical
-**Story Points:** 8
-
-**Description:**
-As a shopper browsing products, I want to see products in a grid layout, so that I can quickly scan multiple items and compare them visually
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I select grid view, then products display in a responsive grid layout
-- [ ] Given I'm on mobile, when in grid view, then I see 2 products per row with adequate spacing
-- [ ] Given I'm on tablet, when in grid view, then I see 3-4 products per row optimized for touch interaction
-- [ ] Given I'm on desktop, when in grid view, then I see 4-6 products per row with hover effects
-- [ ] Given I scroll down, when reaching the end of loaded products, then more products load automatically (infinite scroll)
-
-### US-006: Product Listing List View
+### US-004: Remember Me Functionality
 
 **Priority:** high
 **Story Points:** 5
 
 **Description:**
-As a shopper who prefers detailed information, I want to see products in a list layout, so that I can view more product details and specifications at once
+As a frequent customer, I want the option to stay logged in across browser sessions, so that I don't have to login repeatedly
 
 **Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I select list view, then products display in a vertical list with detailed information
-- [ ] Given I'm viewing list layout, when I see each product, then I see image, title, price, rating, and key specifications
-- [ ] Given I'm on mobile, when in list view, then the layout stacks vertically with optimized touch targets
-- [ ] Given I'm on desktop, when in list view, then I see products with image on left and details on right
-- [ ] Given I want to compare products, when in list view, then I can easily scan prices and ratings vertically
+- [ ] Given I check 'Remember me' during login, when I close and reopen browser, then I remain logged in for 30 days
+- [ ] Given I don't check 'Remember me', when I close browser, then I'm logged out and need to login again
+- [ ] Given I have remember me active, when 30 days pass, then token expires and I need to login again
+- [ ] Given I logout manually, when I had remember me checked, then remember me token is invalidated
+- [ ] Given I login on different device with remember me, when I login, then previous remember me tokens remain valid
+- [ ] Given I change password, when I have active remember me sessions, then all remember me tokens are invalidated
+- [ ] Given remember me token exists, when I visit site, then I'm automatically logged in without entering credentials
 
-### US-007: View Toggle Switch
+### US-005: Password Reset Request
 
-**Priority:** high
-**Story Points:** 3
+**Priority:** critical
+**Story Points:** 5
 
 **Description:**
-As a shopper, I want to switch between grid and list views easily, so that I can choose the layout that best suits my browsing preference
+As a customer who forgot my password, I want to request a password reset via email, so that I can regain access to my account
 
 **Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I see the view options, then I see clearly labeled grid and list view toggle buttons
-- [ ] Given I click the grid view button, when it activates, then the layout switches to grid view and button shows active state
-- [ ] Given I click the list view button, when it activates, then the layout switches to list view and button shows active state
-- [ ] Given I switch views, when the layout changes, then the transition is smooth and maintains my current scroll position
-- [ ] Given I refresh the page, when it loads, then my previously selected view preference is remembered
+- [ ] Given I click 'Forgot Password', when I enter my registered email, then I receive password reset email within 5 minutes
+- [ ] Given I enter unregistered email, when I submit reset request, then I see 'If email exists, reset link sent' (no indication if email not found)
+- [ ] Given I request reset multiple times, when I submit within 5 minutes, then I see cooldown message 'Reset email already sent'
+- [ ] Given I receive reset email, when reset link is generated, then it expires in 1 hour for security
+- [ ] Given I click reset link, when it's valid, then I'm taken to secure password reset form
+- [ ] Given reset link is expired, when I click it, then I see expired message with option to request new reset
+- [ ] Given I'm already logged in, when I try to use reset link, then I see message 'You're already logged in'
 
-### US-008: Search Bar Display
+### US-006: Password Reset Completion
 
 **Priority:** critical
 **Story Points:** 3
 
 **Description:**
-As a user, I want to see a prominent search bar, so that I can easily search for products I'm looking for
+As a customer with a valid reset link, I want to set a new password, so that I can login with my new credentials
 
 **Acceptance Criteria:**
-- [ ] Given I'm on any page, when I look for search functionality, then I see a clearly visible search bar in the header
-- [ ] Given I'm on mobile, when I tap the search bar, then it expands or focuses with on-screen keyboard appearing
-- [ ] Given I'm on desktop, when I focus on the search bar, then the cursor appears and I can immediately start typing
-- [ ] Given the search bar is empty, when I see it, then I see helpful placeholder text like 'Search for products...'
-- [ ] Given I start typing, when I enter text, then the search icon changes to a clear/X button to empty the field
+- [ ] Given I have valid reset link, when I enter new password meeting requirements, then password is updated and I'm redirected to login
+- [ ] Given I set new password, when process completes, then all existing sessions are invalidated for security
+- [ ] Given I enter weak password, when I submit, then I see validation errors matching registration requirements
+- [ ] Given I use reset form, when I enter password twice, then both fields must match exactly
+- [ ] Given password reset succeeds, when I try to use same reset link again, then I see 'Link already used' message
+- [ ] Given I reset password successfully, when I login with old password, then login fails
+- [ ] Given I reset password, when I login with new password immediately, then login succeeds
 
-### US-009: Search Instant Suggestions
+### US-007: Google OAuth Registration
+
+**Priority:** high
+**Story Points:** 8
+
+**Description:**
+As a new customer, I want to register using my Google account, so that I can quickly create an account without remembering another password
+
+**Acceptance Criteria:**
+- [ ] Given I click 'Sign up with Google', when I complete Google OAuth, then my account is created with Google email and I'm logged in
+- [ ] Given Google provides my email, when account is created, then email is automatically verified (no verification email needed)
+- [ ] Given Google OAuth fails, when error occurs, then I see user-friendly error message with option to try email registration
+- [ ] Given I register with Google, when account is created, then I can later add password for email login option
+- [ ] Given Google email matches existing account, when I try OAuth registration, then I see 'Account exists, try logging in'
+- [ ] Given Google OAuth succeeds, when JWT is generated, then it includes Google provider information
+- [ ] Given I complete Google registration, when I'm redirected, then I land on welcome/onboarding page
+
+### US-008: Google OAuth Login
+
+**Priority:** high
+**Story Points:** 5
+
+**Description:**
+As an existing customer with Google account, I want to login using Google OAuth, so that I can access my account quickly
+
+**Acceptance Criteria:**
+- [ ] Given I have account created with Google, when I click 'Login with Google', then I'm logged in after OAuth completion
+- [ ] Given I have email/password account, when I try Google login with same email, then accounts are linked and I can use either method
+- [ ] Given Google OAuth fails during login, when error occurs, then I see clear error message with fallback to email login
+- [ ] Given I login with Google, when session is created, then JWT token includes OAuth provider info
+- [ ] Given Google login succeeds, when I'm redirected, then I go to intended destination or dashboard
+- [ ] Given I'm already logged in, when I click Google login, then I'm redirected to dashboard without re-authentication
+- [ ] Given Google revokes access, when I try to login, then I see error asking to reauthorize
+
+### US-009: JWT Token Management
 
 **Priority:** critical
 **Story Points:** 8
 
 **Description:**
-As a user typing in the search bar, I want to see instant suggestions, so that I can quickly find what I'm looking for without typing the complete query
+As a logged-in user, I want my authentication tokens to be securely managed, so that my session is both secure and convenient
 
 **Acceptance Criteria:**
-- [ ] Given I start typing in the search bar, when I've entered 2+ characters, then I see a dropdown list of suggestions
-- [ ] Given I see search suggestions, when I view them, then I see a mix of popular searches, product names, and categories
-- [ ] Given I use keyboard navigation, when I press arrow keys, then I can navigate up/down through suggestions
-- [ ] Given I click on a suggestion, when I select it, then the search executes immediately with that term
-- [ ] Given suggestions are loading, when there's a delay, then I see a subtle loading indicator
+- [ ] Given I login successfully, when JWT is generated, then it contains user ID, role, and expires in 15 minutes
+- [ ] Given I have valid refresh token, when access token expires, then new access token is automatically generated
+- [ ] Given I'm inactive for 24 hours, when refresh token expires, then I must login again
+- [ ] Given I logout, when tokens are invalidated, then both access and refresh tokens are blacklisted
+- [ ] Given I change password, when update occurs, then all existing tokens are invalidated
+- [ ] Given token is tampered with, when request is made, then request is rejected and user is logged out
+- [ ] Given I make API requests, when access token is valid, then requests are authorized
 
-### US-010: Search Results Display
-
-**Priority:** critical
-**Story Points:** 5
-
-**Description:**
-As a user who has searched for products, I want to see relevant results clearly displayed, so that I can find and select the products I'm looking for
-
-**Acceptance Criteria:**
-- [ ] Given I submit a search query, when results load, then I see products matching my search terms
-- [ ] Given I see search results, when I view the page, then I see the search term highlighted and result count displayed
-- [ ] Given no results are found, when my search completes, then I see a helpful message with alternative suggestions
-- [ ] Given I have search results, when I view them, then I can switch between grid and list views
-- [ ] Given results are loading, when I wait, then I see appropriate loading states for better user experience
-
-### US-011: Price Filter
-
-**Priority:** critical
-**Story Points:** 5
-
-**Description:**
-As a shopper, I want to filter products by price range, so that I can find items within my budget
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I look for filters, then I see a price range filter option
-- [ ] Given I interact with price filter, when I adjust the range, then I can set minimum and maximum price values
-- [ ] Given I set a price range, when I apply the filter, then only products within that range are displayed
-- [ ] Given I'm on mobile, when using price filter, then I see a slider interface optimized for touch
-- [ ] Given I'm on desktop, when using price filter, then I can use both slider and text input for precise values
-
-### US-012: Category Filter
-
-**Priority:** critical
-**Story Points:** 5
-
-**Description:**
-As a shopper, I want to filter products by category, so that I can narrow down results to specific types of products I'm interested in
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I see filters, then I see a category filter with available categories listed
-- [ ] Given I select one or more categories, when I apply the filter, then only products from selected categories are shown
-- [ ] Given categories have subcategories, when I expand a category, then I see nested subcategory options
-- [ ] Given I have selected categories, when I view them, then I see selected categories highlighted with ability to deselect
-- [ ] Given I select a category, when results update, then the product count for each remaining category updates accordingly
-
-### US-013: Rating Filter
-
-**Priority:** high
-**Story Points:** 3
-
-**Description:**
-As a shopper, I want to filter products by customer rating, so that I can focus on highly-rated items
-
-**Acceptance Criteria:**
-- [ ] Given I'm viewing product listings, when I see filter options, then I see a rating filter with star rating options
-- [ ] Given I select a minimum rating, when I apply the filter, then only products with that rating or higher are displayed
-- [ ] Given I click on 4 stars, when the filter applies, then I see products with 4+ star ratings
-- [ ] Given I see rating options, when I view them, then I see the number of products available for each rating level
-- [ ] Given I have applied rating filter, when I view results, then the selected rating threshold is clearly indicated
-
-### US-014: Sort Options
+### US-010: User Logout
 
 **Priority:** critical
 **Story Points:** 3
 
 **Description:**
-As a shopper, I want to sort products by different criteria, so that I can organize results according to my preferences
+As a logged-in customer, I want to securely logout, so that my account is protected when I finish shopping
 
 **Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I look for sorting options, then I see a dropdown or button group with sort options
-- [ ] Given I see sort options, when I view them, then I see options like 'Price Low to High', 'Price High to Low', 'Newest First', 'Best Rating', 'Most Popular'
-- [ ] Given I select a sort option, when it applies, then products reorder immediately according to the selected criteria
-- [ ] Given I have sorted products, when I view the results, then the current sort option is clearly indicated as active
-- [ ] Given I change sort options, when the new sort applies, then my current page position is maintained for continuity
+- [ ] Given I click logout, when process completes, then I'm redirected to login page and all tokens are invalidated
+- [ ] Given I logout, when I try to access protected pages, then I'm redirected to login
+- [ ] Given I logout, when I try to use API with old tokens, then requests are rejected
+- [ ] Given I logout on one device, when I'm logged in on other devices, then other sessions remain active
+- [ ] Given I logout, when remember me was active, then remember me token is also invalidated
+- [ ] Given I logout, when I click browser back button, then protected pages show login form instead of cached content
+- [ ] Given logout fails due to network, when error occurs, then local tokens are still cleared and user appears logged out
 
-### US-015: Filter Sidebar Responsive Design
+### US-011: Session Timeout Handling
 
-**Priority:** critical
+**Priority:** high
+**Story Points:** 5
+
+**Description:**
+As a user with expired session, I want to be notified and given chance to renew, so that I don't lose my work unexpectedly
+
+**Acceptance Criteria:**
+- [ ] Given my session expires during activity, when I make next request, then I see modal asking to login again
+- [ ] Given I see session timeout modal, when I re-authenticate, then I continue from where I left off
+- [ ] Given I ignore timeout warning, when final timeout occurs, then I'm logged out and redirected to login
+- [ ] Given I'm filling a form when session expires, when I re-authenticate, then form data is preserved
+- [ ] Given I get session timeout, when I have items in cart, then cart contents are preserved after re-login
+- [ ] Given I'm inactive for 30 minutes, when timeout warning appears, then I have 5 minutes to respond
+- [ ] Given session expires, when I try to checkout, then I must login first but order details are preserved
+
+### US-012: Account Security Dashboard
+
+**Priority:** medium
 **Story Points:** 8
 
 **Description:**
-As a user on any device, I want filter options to be easily accessible and well-organized, so that I can efficiently narrow down product results
+As a security-conscious user, I want to view my account security information, so that I can monitor and control my account access
 
 **Acceptance Criteria:**
-- [ ] Given I'm on desktop, when I view product listings, then filters appear in a sidebar on the left side of the page
-- [ ] Given I'm on tablet, when I view product listings, then filters appear in a collapsible sidebar or top section
-- [ ] Given I'm on mobile, when I view product listings, then filters appear behind a 'Filter' button that opens a modal or drawer
-- [ ] Given I open filters on mobile, when the filter panel appears, then it overlays the content with easy close functionality
-- [ ] Given I apply filters, when I close the filter panel, then applied filters are summarized in a compact view
+- [ ] Given I access security settings, when page loads, then I see last login time and device information
+- [ ] Given I view active sessions, when page displays, then I see list of current login sessions with device/location
+- [ ] Given I see suspicious session, when I click 'End Session', then that specific session is terminated
+- [ ] Given I want extra security, when I click 'End All Sessions', then all sessions except current are terminated
+- [ ] Given I view login history, when I scroll, then I see last 50 login attempts with timestamps and locations
+- [ ] Given I see failed login attempts, when they're displayed, then I can report suspicious activity
+- [ ] Given I change critical settings, when I save, then I receive email notification of changes
 
-### US-016: Applied Filters Display
+### US-013: Password Change for Existing Users
+
+**Priority:** high
+**Story Points:** 5
+
+**Description:**
+As a logged-in customer, I want to change my password, so that I can maintain account security
+
+**Acceptance Criteria:**
+- [ ] Given I'm in account settings, when I enter current password and new password, then password is updated successfully
+- [ ] Given I enter wrong current password, when I submit, then I see error 'Current password incorrect'
+- [ ] Given I enter weak new password, when I submit, then I see validation errors with requirements
+- [ ] Given password change succeeds, when I save, then all other sessions are logged out for security
+- [ ] Given I change password, when I try old password later, then login fails with that password
+- [ ] Given I change password, when process completes, then I receive email confirmation of change
+- [ ] Given I have Google OAuth account, when I try to change password, then I'm prompted to set up email/password login first
+
+### US-014: Account Linking (Email + OAuth)
+
+**Priority:** medium
+**Story Points:** 8
+
+**Description:**
+As a user with multiple login methods, I want to link my email and Google accounts, so that I can use either method to access the same account
+
+**Acceptance Criteria:**
+- [ ] Given I have email account, when I login with Google using same email, then accounts are automatically linked
+- [ ] Given I have Google account, when I add password in settings, then I can login with either method
+- [ ] Given I have linked accounts, when I login with either method, then I access same account data
+- [ ] Given I unlink Google account, when I confirm action, then I can only login with email/password
+- [ ] Given I try to unlink last login method, when I attempt, then I see error requiring at least one login method
+- [ ] Given accounts are linked, when I change password, then Google login still works
+- [ ] Given I link accounts, when I view security settings, then I see both login methods listed
+
+### US-015: Mobile Authentication Experience
+
+**Priority:** high
+**Story Points:** 5
+
+**Description:**
+As a mobile shopper, I want authentication to work smoothly on my phone, so that I can shop conveniently on any device
+
+**Acceptance Criteria:**
+- [ ] Given I'm on mobile device, when I access login/signup forms, then inputs are optimized for mobile keyboards
+- [ ] Given I use mobile Chrome, when I signup/login, then browser offers to save credentials
+- [ ] Given I have biometric login enabled, when I return to site, then I can use fingerprint/face ID to login
+- [ ] Given I'm on mobile, when I use Google OAuth, then flow works smoothly with Google app or browser
+- [ ] Given I'm on small screen, when authentication modals appear, then they're properly sized and accessible
+- [ ] Given I rotate device, when I'm in auth flow, then forms adjust properly to new orientation
+- [ ] Given I use mobile, when I get verification email, then I can easily switch between email app and browser
+
+### US-016: Authentication Error Handling
 
 **Priority:** high
 **Story Points:** 3
 
 **Description:**
-As a shopper who has applied filters, I want to see which filters are currently active, so that I can understand what's limiting my results and easily modify them
+As any user encountering authentication issues, I want to see clear, helpful error messages, so that I can resolve problems quickly
 
 **Acceptance Criteria:**
-- [ ] Given I have applied filters, when I view the product listing, then I see a summary of active filters above the results
-- [ ] Given I see active filters, when I view them, then each filter appears as a removable tag or chip
-- [ ] Given I click on a filter tag, when I interact with it, then that specific filter is removed and results update
-- [ ] Given I have multiple filters applied, when I want to clear all, then I see a 'Clear All Filters' button
-- [ ] Given I remove a filter, when the change applies, then the result count updates and products refresh accordingly
+- [ ] Given network error occurs during login, when request fails, then I see 'Connection problem. Please try again.'
+- [ ] Given server is down during authentication, when request times out, then I see maintenance message with status page link
+- [ ] Given I enter malformed email, when I submit, then I see 'Please enter a valid email address'
+- [ ] Given OAuth provider is unavailable, when Google login fails, then I see fallback to email login option
+- [ ] Given I exceed rate limits, when blocked, then I see clear message about temporary restriction and duration
+- [ ] Given email service is down, when verification fails to send, then I see retry option with alternative contact method
+- [ ] Given unexpected error occurs, when system fails, then I see generic error with support contact information
 
-### US-017: Mobile Touch Interactions
+### US-017: Authentication Analytics and Monitoring
 
-**Priority:** critical
+**Priority:** low
 **Story Points:** 5
 
 **Description:**
-As a mobile user, I want all interactive elements to be touch-friendly, so that I can easily navigate and use the site on my mobile device
+As a system administrator, I want to monitor authentication metrics, so that I can ensure system health and security
 
 **Acceptance Criteria:**
-- [ ] Given I'm using the site on mobile, when I tap any interactive element, then it has adequate size (44px minimum) for easy tapping
-- [ ] Given I tap buttons or links, when I interact with them, then I see visual feedback like color changes or animations
-- [ ] Given I use swipe gestures, when appropriate, then I can swipe through product carousels and image galleries
-- [ ] Given I scroll through content, when I swipe up/down, then scrolling is smooth without lag or jankiness
-- [ ] Given I use pinch-to-zoom on product images, when I zoom, then images scale appropriately without breaking layout
+- [ ] Given users attempt authentication, when events occur, then success/failure rates are tracked
+- [ ] Given suspicious activity occurs, when patterns are detected, then alerts are generated
+- [ ] Given I view auth dashboard, when I access metrics, then I see signup conversion rates, login success rates
+- [ ] Given performance issues arise, when response times increase, then monitoring alerts fire
+- [ ] Given I analyze user behavior, when I view reports, then I see authentication method preferences
+- [ ] Given security incidents occur, when breaches are attempted, then detailed logs are maintained
+- [ ] Given I need compliance data, when I generate reports, then authentication audit trails are available
 
-### US-018: Loading States and Performance
+### US-018: Progressive Enhancement for JavaScript Disabled
 
-**Priority:** high
-**Story Points:** 5
+**Priority:** low
+**Story Points:** 3
 
 **Description:**
-As a user, I want to see appropriate loading indicators when content is being fetched, so that I understand the system is working and know what to expect
+As a user with JavaScript disabled or slow connection, I want basic authentication to still work, so that I can access the site regardless of my technical setup
 
 **Acceptance Criteria:**
-- [ ] Given I navigate to any page, when content is loading, then I see skeleton screens or loading indicators that match the expected content layout
-- [ ] Given I apply filters or sort options, when results are updating, then I see a subtle loading overlay on the product grid
-- [ ] Given images are loading, when they're being fetched, then I see placeholder boxes that maintain layout stability
-- [ ] Given I search for products, when results are being fetched, then I see a loading state in the search suggestions dropdown
-- [ ] Given loading takes more than 3 seconds, when I'm waiting, then I see progress indicators or helpful messaging
+- [ ] Given JavaScript is disabled, when I access login form, then I can still submit via regular form POST
+- [ ] Given I have slow connection, when JavaScript fails to load, then authentication forms still function
+- [ ] Given I submit form without JavaScript, when processed, then I get appropriate success/error page redirects
+- [ ] Given OAuth requires JavaScript, when JS is disabled, then Google login button is hidden with email-only option
+- [ ] Given form validation needs JavaScript, when disabled, then server-side validation provides feedback
+- [ ] Given I use assistive technology, when JavaScript fails, then authentication remains fully accessible
+- [ ] Given progressive enhancement, when JavaScript loads later, then forms are enhanced without breaking functionality
 
-### US-019: Cross-Browser Compatibility
-
-**Priority:** high
-**Story Points:** 8
-
-**Description:**
-As a user accessing the site from different browsers, I want consistent functionality and appearance, so that I have a reliable experience regardless of my browser choice
-
-**Acceptance Criteria:**
-- [ ] Given I access the site in Chrome, Firefox, Safari, or Edge, when I use core features, then all functionality works correctly
-- [ ] Given I use an older browser version, when features aren't supported, then I see graceful fallbacks that maintain usability
-- [ ] Given I disable JavaScript, when I visit the site, then basic content and navigation remain accessible
-- [ ] Given I use different browser zoom levels, when I view content, then layouts remain functional and readable
-- [ ] Given I test responsive breakpoints, when I resize in different browsers, then behavior is consistent across browsers
-
-### US-020: Accessibility Features
+### US-019: GDPR Compliance for Authentication
 
 **Priority:** critical
 **Story Points:** 8
 
 **Description:**
-As a user with accessibility needs, I want the site to be fully accessible, so that I can use all features regardless of my abilities
+As a privacy-conscious user, I want my authentication data to be handled according to GDPR requirements, so that my privacy rights are protected
 
 **Acceptance Criteria:**
-- [ ] Given I use a screen reader, when I navigate the site, then all content and interactive elements are properly announced
-- [ ] Given I navigate using only keyboard, when I tab through the site, then I can access all interactive elements with visible focus indicators
-- [ ] Given I have visual impairments, when I view the site, then color contrast meets WCAG AA standards for all text and interactive elements
-- [ ] Given I use voice control software, when I give commands, then buttons and links have appropriate accessible names
-- [ ] Given I need larger text, when I increase browser text size to 200%, then content remains readable and functional
+- [ ] Given I register for account, when I signup, then I explicitly consent to data processing with clear privacy notice
+- [ ] Given I want to see my data, when I request it, then I can download all stored authentication data
+- [ ] Given I want to delete account, when I request deletion, then all personal data is removed within 30 days
+- [ ] Given I withdraw consent, when I update preferences, then data processing stops except for legal requirements
+- [ ] Given data breach occurs, when personal data is affected, then I'm notified within 72 hours
+- [ ] Given I'm in EU, when I access site, then I see clear cookie consent for authentication cookies
+- [ ] Given I exercise GDPR rights, when I make requests, then they're handled within legal timeframes
 
-### US-021: Site Performance Optimization
+### US-020: Multi-Factor Authentication (MFA)
 
-**Priority:** high
-**Story Points:** 8
+**Priority:** medium
+**Story Points:** 13
 
 **Description:**
-As a user, I want the site to load quickly and respond smoothly to my interactions, so that I can shop efficiently without frustration
+As a security-focused customer, I want to enable two-factor authentication, so that my account has an extra layer of protection
 
 **Acceptance Criteria:**
-- [ ] Given I visit any page, when it loads, then the initial content appears within 2 seconds on 3G connection
-- [ ] Given I interact with any feature, when I click or tap, then I see visual feedback within 100ms
-- [ ] Given I scroll through product listings, when I move through the page, then scrolling maintains 60fps performance
-- [ ] Given I apply filters or change views, when the page updates, then changes complete within 1 second
-- [ ] Given I navigate between pages, when I click links, then subsequent pages load with perceived performance under 1 second
+- [ ] Given I enable 2FA, when I login, then I must provide second factor (SMS or authenticator app)
+- [ ] Given I setup 2FA, when I scan QR code, then authenticator app generates valid codes
+- [ ] Given I lose 2FA device, when I use backup codes, then I can still access my account
+- [ ] Given I enable 2FA, when I generate backup codes, then I receive 10 one-time use codes
+- [ ] Given I complete 2FA setup, when I login from new device, then 2FA is required
+- [ ] Given I want to disable 2FA, when I confirm with current 2FA code, then feature is turned off
+- [ ] Given I have 2FA enabled, when I reset password, then 2FA codes are regenerated for security
 
-### US-022: Error Handling and Recovery
+### US-021: Social Login Extensions (Facebook, Apple)
 
-**Priority:** high
-**Story Points:** 5
+**Priority:** low
+**Story Points:** 13
 
 **Description:**
-As a user encountering errors, I want clear feedback and recovery options, so that I can understand what went wrong and how to proceed
+As a user preferring social logins, I want more OAuth options beyond Google, so that I can use my preferred social platform
 
 **Acceptance Criteria:**
-- [ ] Given a network error occurs, when I try to load content, then I see a friendly error message with a retry button
-- [ ] Given search returns no results, when I see the empty state, then I get suggestions for alternative searches or categories
-- [ ] Given filters produce no results, when I apply them, then I see a message explaining no products match and suggest removing some filters
-- [ ] Given an image fails to load, when it errors, then I see a placeholder image that maintains layout
-- [ ] Given the page fails to load completely, when I encounter an error, then I see an error page with navigation options to return to working areas
+- [ ] Given I prefer Facebook, when I click Facebook login, then OAuth flow works similar to Google
+- [ ] Given I use iOS device, when I see Apple Sign In option, then I can authenticate with Face ID/Touch ID
+- [ ] Given I login with Facebook, when account is created, then profile information is populated appropriately
+- [ ] Given I use Apple Sign In, when I hide email, then system handles private email relay properly
+- [ ] Given I have multiple social logins, when I access account settings, then I can manage all connected platforms
+- [ ] Given social platform is unavailable, when OAuth fails, then I see clear error with alternative login methods
+- [ ] Given I disconnect social login, when I have password set, then I can still access account
 
-### US-023: URL State Management
-
-**Priority:** high
-**Story Points:** 5
-
-**Description:**
-As a user, I want URLs to reflect my current state (filters, search, pagination), so that I can bookmark, share, or refresh without losing my place
-
-**Acceptance Criteria:**
-- [ ] Given I apply filters, when I look at the URL, then it includes parameters reflecting my current filter selections
-- [ ] Given I search for products, when I see the URL, then it includes my search query as a parameter
-- [ ] Given I copy and share a URL with filters, when someone else visits it, then they see the same filtered results I was viewing
-- [ ] Given I refresh the page, when it reloads, then all my current filters, search, and pagination state are preserved
-- [ ] Given I use browser back/forward buttons, when I navigate, then the page state updates to match the URL in history
-
-### US-024: Product Card Interactions
+### US-022: Authentication API Rate Limiting
 
 **Priority:** high
 **Story Points:** 5
 
 **Description:**
-As a shopper viewing products, I want interactive product cards that provide quick access to key information and actions, so that I can efficiently evaluate products
+As a system administrator, I want API rate limiting on authentication endpoints, so that the system is protected from abuse and brute force attacks
 
 **Acceptance Criteria:**
-- [ ] Given I hover over a product card on desktop, when my mouse enters the area, then I see additional information like quick view or add to wishlist buttons
-- [ ] Given I see a product card, when I view it, then I see product image, title, price, rating, and key specifications clearly displayed
-- [ ] Given I click on a product image or title, when I interact with it, then I navigate to the full product details page
-- [ ] Given products have multiple images, when I hover over the product card, then I see image thumbnails or can cycle through images
-- [ ] Given a product is on sale, when I see the card, then both original and sale prices are displayed with clear visual distinction
+- [ ] Given user makes login attempts, when 5 failures occur in 15 minutes, then IP is temporarily blocked
+- [ ] Given registration requests spike, when rate exceeded, then new signups are temporarily throttled
+- [ ] Given password reset requests, when more than 3 per hour from same IP, then additional requests are blocked
+- [ ] Given OAuth callback abuse, when suspicious patterns detected, then OAuth flows are rate limited
+- [ ] Given legitimate user hits rate limit, when blocked, then clear message explains wait time
+- [ ] Given rate limiting is active, when time period expires, then access is automatically restored
+- [ ] Given admin needs override, when emergency occurs, then rate limits can be temporarily disabled
 
-### US-025: Pagination and Infinite Scroll
+### US-023: Accessibility Compliance for Authentication
 
 **Priority:** high
-**Story Points:** 8
+**Story Points:** 5
 
 **Description:**
-As a user browsing many products, I want an efficient way to navigate through multiple pages of results, so that I can explore the full catalog without performance issues
+As a user with disabilities, I want authentication forms to be fully accessible, so that I can independently create and access my account
 
 **Acceptance Criteria:**
-- [ ] Given I'm viewing product results with many pages, when I scroll to the bottom, then additional products load automatically (infinite scroll)
-- [ ] Given I prefer traditional pagination, when I look for navigation controls, then I see page numbers and next/previous buttons as an alternative option
-- [ ] Given I'm on mobile with infinite scroll, when new content loads, then I see a subtle loading indicator and smooth content addition
-- [ ] Given I've scrolled through many products, when I want to return to top, then I see a floating 'back to top' button
-- [ ] Given infinite scroll is loading many items, when performance becomes an issue, then the system switches to traditional pagination with user notice
+- [ ] Given I use screen reader, when I navigate forms, then all fields have proper labels and descriptions
+- [ ] Given I use keyboard only, when I navigate authentication, then all functionality is keyboard accessible
+- [ ] Given I have visual impairment, when forms show errors, then errors are announced by screen reader
+- [ ] Given I have motor disabilities, when I interact with forms, then click targets are appropriately sized
+- [ ] Given I need high contrast, when I view authentication pages, then text meets WCAG contrast requirements
+- [ ] Given I use voice control, when I navigate forms, then elements have appropriate accessible names
+- [ ] Given I have cognitive disabilities, when I see forms, then instructions are clear and simple
+
+### US-024: Authentication Performance Optimization
+
+**Priority:** medium
+**Story Points:** 3
+
+**Description:**
+As any user accessing the authentication system, I want fast response times, so that login and signup processes don't slow down my experience
+
+**Acceptance Criteria:**
+- [ ] Given I submit login form, when credentials are valid, then authentication completes in under 500ms
+- [ ] Given I access signup page, when page loads, then form is ready for input in under 2 seconds
+- [ ] Given I use OAuth login, when I click provider button, then redirect happens in under 300ms
+- [ ] Given I verify email, when I click link, then verification completes in under 1 second
+- [ ] Given I reset password, when I submit new password, then update completes in under 800ms
+- [ ] Given system is under load, when I authenticate, then response times degrade gracefully
+- [ ] Given I'm on slow connection, when authentication loads, then critical functionality loads first
 
