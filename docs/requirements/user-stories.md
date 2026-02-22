@@ -106,7 +106,7 @@ As a customer with a valid reset link, I want to set a new password, so that I c
 - [ ] Given I enter weak password, when I submit, then I see validation errors matching registration requirements
 - [ ] Given I use reset form, when I enter password twice, then both fields must match exactly
 - [ ] Given password reset succeeds, when I try to use same reset link again, then I see 'Link already used' message
-- [ ] Given I reset password successfully, when I login with old password, then login fails
+- [ ] Given I reset password successfully, when I try to login with old password, then login fails
 - [ ] Given I reset password, when I login with new password immediately, then login succeeds
 
 ### US-007: Google OAuth Registration
