@@ -6,528 +6,109 @@
         {
           "name": "id",
           "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
+          "default": "gen_random_uuid()",
+          "primary": true
         },
         {
           "name": "email",
           "type": "VARCHAR(255)",
-          "nullable": false,
-          "unique": true
+          "unique": true,
+          "nullable": false
         },
         {
           "name": "password_hash",
           "type": "VARCHAR(255)",
-          "nullable": false
+          "nullable": true
         },
         {
           "name": "first_name",
-          "type": "VARCHAR(50)",
+          "type": "VARCHAR(100)",
           "nullable": false
         },
         {
           "name": "last_name",
-          "type": "VARCHAR(50)",
+          "type": "VARCHAR(100)",
           "nullable": false
-        },
-        {
-          "name": "phone",
-          "type": "VARCHAR(20)",
-          "nullable": true
-        },
-        {
-          "name": "date_of_birth",
-          "type": "DATE",
-          "nullable": true
-        },
-        {
-          "name": "avatar",
-          "type": "VARCHAR(500)",
-          "nullable": true
         },
         {
           "name": "email_verified",
           "type": "BOOLEAN",
-          "nullable": false,
-          "default": "false"
+          "default": false
         },
         {
-          "name": "is_active",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "true"
+          "name": "email_verified_at",
+          "type": "TIMESTAMP",
+          "nullable": true
         },
         {
           "name": "role",
-          "type": "VARCHAR(20)",
-          "nullable": false,
+          "type": "VARCHAR(50)",
           "default": "user"
         },
         {
-          "name": "last_login",
+          "name": "account_locked_until",
           "type": "TIMESTAMP",
           "nullable": true
         },
         {
+          "name": "failed_login_attempts",
+          "type": "INTEGER",
+          "default": 0
+        },
+        {
+          "name": "marketing_opt_in",
+          "type": "BOOLEAN",
+          "default": false
+        },
+        {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
         },
         {
           "name": "updated_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_login_at",
+          "type": "TIMESTAMP",
+          "nullable": true
         }
       ],
       "indexes": [
         {
+          "unique": true,
           "columns": [
             "email"
-          ],
-          "unique": true
+          ]
         },
         {
           "columns": [
-            "role"
-          ],
-          "unique": false
+            "email_verified"
+          ]
+        },
+        {
+          "columns": [
+            "created_at"
+          ]
+        },
+        {
+          "columns": [
+            "last_login_at"
+          ]
         }
       ],
       "foreignKeys": []
     },
     {
-      "name": "products",
+      "name": "oauth_accounts",
       "columns": [
         {
           "name": "id",
           "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(255)",
-          "nullable": false
-        },
-        {
-          "name": "description",
-          "type": "TEXT",
-          "nullable": true
-        },
-        {
-          "name": "price",
-          "type": "DECIMAL(10,2)",
-          "nullable": false
-        },
-        {
-          "name": "original_price",
-          "type": "DECIMAL(10,2)",
-          "nullable": true
-        },
-        {
-          "name": "discount",
-          "type": "DECIMAL(5,2)",
-          "nullable": true,
-          "default": "0"
-        },
-        {
-          "name": "currency",
-          "type": "VARCHAR(3)",
-          "nullable": false,
-          "default": "USD"
-        },
-        {
-          "name": "image_url",
-          "type": "VARCHAR(500)",
-          "nullable": false
-        },
-        {
-          "name": "image_urls",
-          "type": "JSON",
-          "nullable": true
-        },
-        {
-          "name": "category_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "brand_id",
-          "type": "UUID",
-          "nullable": true
-        },
-        {
-          "name": "rating",
-          "type": "DECIMAL(3,2)",
-          "nullable": true,
-          "default": "0"
-        },
-        {
-          "name": "review_count",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
-        },
-        {
-          "name": "in_stock",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "true"
-        },
-        {
-          "name": "stock_count",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
-        },
-        {
-          "name": "tags",
-          "type": "JSON",
-          "nullable": true
-        },
-        {
-          "name": "featured",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "false"
-        },
-        {
-          "name": "specifications",
-          "type": "JSON",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "category_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "brand_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "price"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "rating"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "featured"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "in_stock"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "name"
-          ],
-          "unique": false,
-          "type": "gin"
-        },
-        {
-          "columns": [
-            "created_at"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "category_id",
-          "references": "categories(id)",
-          "onDelete": "RESTRICT"
-        },
-        {
-          "column": "brand_id",
-          "references": "brands(id)",
-          "onDelete": "SET NULL"
-        }
-      ]
-    },
-    {
-      "name": "categories",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "slug",
-          "type": "VARCHAR(100)",
-          "nullable": false,
-          "unique": true
-        },
-        {
-          "name": "description",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "image_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "parent_id",
-          "type": "UUID",
-          "nullable": true
-        },
-        {
-          "name": "featured",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "false"
-        },
-        {
-          "name": "sort_order",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "slug"
-          ],
-          "unique": true
-        },
-        {
-          "columns": [
-            "parent_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "featured"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "sort_order"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "parent_id",
-          "references": "categories(id)",
-          "onDelete": "SET NULL"
-        }
-      ]
-    },
-    {
-      "name": "brands",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "slug",
-          "type": "VARCHAR(100)",
-          "nullable": false,
-          "unique": true
-        },
-        {
-          "name": "description",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "logo_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "website_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "slug"
-          ],
-          "unique": true
-        },
-        {
-          "columns": [
-            "name"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": []
-    },
-    {
-      "name": "product_variants",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "product_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(255)",
-          "nullable": false
-        },
-        {
-          "name": "price",
-          "type": "DECIMAL(10,2)",
-          "nullable": false
-        },
-        {
-          "name": "sku",
-          "type": "VARCHAR(100)",
-          "nullable": true,
-          "unique": true
-        },
-        {
-          "name": "attributes",
-          "type": "JSON",
-          "nullable": true
-        },
-        {
-          "name": "in_stock",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "true"
-        },
-        {
-          "name": "stock_count",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "product_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "sku"
-          ],
-          "unique": true
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "product_id",
-          "references": "products(id)",
-          "onDelete": "CASCADE"
-        }
-      ]
-    },
-    {
-      "name": "product_reviews",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "product_id",
-          "type": "UUID",
-          "nullable": false
+          "default": "gen_random_uuid()",
+          "primary": true
         },
         {
           "name": "user_id",
@@ -535,487 +116,81 @@
           "nullable": false
         },
         {
-          "name": "user_name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "rating",
-          "type": "INTEGER",
-          "nullable": false,
-          "check": "rating >= 1 AND rating <= 5"
-        },
-        {
-          "name": "comment",
-          "type": "TEXT",
-          "nullable": false
-        },
-        {
-          "name": "verified",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "false"
-        },
-        {
-          "name": "helpful",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "product_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "user_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "rating"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "created_at"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "product_id",
-          "references": "products(id)",
-          "onDelete": "CASCADE"
-        },
-        {
-          "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "CASCADE"
-        }
-      ]
-    },
-    {
-      "name": "carts",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "user_id",
-          "type": "UUID",
-          "nullable": false,
-          "unique": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "user_id"
-          ],
-          "unique": true
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "CASCADE"
-        }
-      ]
-    },
-    {
-      "name": "cart_items",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "cart_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "product_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "variant_id",
-          "type": "UUID",
-          "nullable": true
-        },
-        {
-          "name": "quantity",
-          "type": "INTEGER",
-          "nullable": false,
-          "check": "quantity > 0"
-        },
-        {
-          "name": "price",
-          "type": "DECIMAL(10,2)",
-          "nullable": false
-        },
-        {
-          "name": "added_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "cart_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "product_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "cart_id",
-            "product_id",
-            "variant_id"
-          ],
-          "unique": true
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "cart_id",
-          "references": "carts(id)",
-          "onDelete": "CASCADE"
-        },
-        {
-          "column": "product_id",
-          "references": "products(id)",
-          "onDelete": "CASCADE"
-        },
-        {
-          "column": "variant_id",
-          "references": "product_variants(id)",
-          "onDelete": "CASCADE"
-        }
-      ]
-    },
-    {
-      "name": "wishlists",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "user_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "product_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "added_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "user_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "product_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "user_id",
-            "product_id"
-          ],
-          "unique": true
-        },
-        {
-          "columns": [
-            "added_at"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "CASCADE"
-        },
-        {
-          "column": "product_id",
-          "references": "products(id)",
-          "onDelete": "CASCADE"
-        }
-      ]
-    },
-    {
-      "name": "banners",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "title",
-          "type": "VARCHAR(200)",
-          "nullable": false
-        },
-        {
-          "name": "subtitle",
-          "type": "VARCHAR(300)",
-          "nullable": true
-        },
-        {
-          "name": "description",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "image_url",
-          "type": "VARCHAR(500)",
-          "nullable": false
-        },
-        {
-          "name": "mobile_image_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "link_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
-        },
-        {
-          "name": "link_text",
+          "name": "provider",
           "type": "VARCHAR(50)",
+          "nullable": false
+        },
+        {
+          "name": "provider_user_id",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "provider_email",
+          "type": "VARCHAR(255)",
+          "nullable": false
+        },
+        {
+          "name": "access_token",
+          "type": "TEXT",
           "nullable": true
         },
         {
-          "name": "position",
-          "type": "VARCHAR(20)",
-          "nullable": false,
-          "check": "position IN ('hero', 'secondary', 'sidebar')"
+          "name": "refresh_token",
+          "type": "TEXT",
+          "nullable": true
         },
         {
-          "name": "active",
-          "type": "BOOLEAN",
-          "nullable": false,
-          "default": "true"
-        },
-        {
-          "name": "start_date",
+          "name": "token_expires_at",
           "type": "TIMESTAMP",
           "nullable": true
-        },
-        {
-          "name": "end_date",
-          "type": "TIMESTAMP",
-          "nullable": true
-        },
-        {
-          "name": "sort_order",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
         },
         {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
         },
         {
           "name": "updated_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        }
-      ],
-      "indexes": [
-        {
-          "columns": [
-            "position"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "active"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "sort_order"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "start_date",
-            "end_date"
-          ],
-          "unique": false
-        }
-      ],
-      "foreignKeys": []
-    },
-    {
-      "name": "user_preferences",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "user_id",
-          "type": "UUID",
-          "nullable": false,
-          "unique": true
-        },
-        {
-          "name": "view_mode",
-          "type": "VARCHAR(10)",
-          "nullable": false,
-          "default": "grid",
-          "check": "view_mode IN ('grid', 'list')"
-        },
-        {
-          "name": "items_per_page",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "20",
-          "check": "items_per_page IN (20, 40, 60)"
-        },
-        {
-          "name": "default_sort",
-          "type": "VARCHAR(20)",
-          "nullable": false,
-          "default": "created_at"
-        },
-        {
-          "name": "default_sort_order",
-          "type": "VARCHAR(4)",
-          "nullable": false,
-          "default": "desc",
-          "check": "default_sort_order IN ('asc', 'desc')"
-        },
-        {
-          "name": "saved_filters",
-          "type": "JSON",
-          "nullable": true
-        },
-        {
-          "name": "currency",
-          "type": "VARCHAR(3)",
-          "nullable": false,
-          "default": "USD"
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
         }
       ],
       "indexes": [
         {
           "columns": [
             "user_id"
-          ],
-          "unique": true
+          ]
+        },
+        {
+          "unique": true,
+          "columns": [
+            "provider",
+            "provider_user_id"
+          ]
+        },
+        {
+          "columns": [
+            "provider_email"
+          ]
         }
       ],
       "foreignKeys": [
         {
           "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "CASCADE"
+          "onDelete": "CASCADE",
+          "references": "users(id)"
         }
       ]
     },
     {
-      "name": "refresh_tokens",
+      "name": "email_verification_tokens",
       "columns": [
         {
           "name": "id",
           "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
+          "default": "gen_random_uuid()",
+          "primary": true
         },
         {
           "name": "user_id",
@@ -1025,8 +200,158 @@
         {
           "name": "token",
           "type": "VARCHAR(255)",
-          "nullable": false,
-          "unique": true
+          "unique": true,
+          "nullable": false
+        },
+        {
+          "name": "expires_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "used",
+          "type": "BOOLEAN",
+          "default": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "indexes": [
+        {
+          "unique": true,
+          "columns": [
+            "token"
+          ]
+        },
+        {
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "columns": [
+            "expires_at"
+          ]
+        },
+        {
+          "columns": [
+            "used"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "column": "user_id",
+          "onDelete": "CASCADE",
+          "references": "users(id)"
+        }
+      ]
+    },
+    {
+      "name": "password_reset_tokens",
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "default": "gen_random_uuid()",
+          "primary": true
+        },
+        {
+          "name": "user_id",
+          "type": "UUID",
+          "nullable": false
+        },
+        {
+          "name": "token",
+          "type": "VARCHAR(255)",
+          "unique": true,
+          "nullable": false
+        },
+        {
+          "name": "expires_at",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "used",
+          "type": "BOOLEAN",
+          "default": false
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "indexes": [
+        {
+          "unique": true,
+          "columns": [
+            "token"
+          ]
+        },
+        {
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "columns": [
+            "expires_at"
+          ]
+        },
+        {
+          "columns": [
+            "used"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "column": "user_id",
+          "onDelete": "CASCADE",
+          "references": "users(id)"
+        }
+      ]
+    },
+    {
+      "name": "refresh_tokens",
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "default": "gen_random_uuid()",
+          "primary": true
+        },
+        {
+          "name": "user_id",
+          "type": "UUID",
+          "nullable": false
+        },
+        {
+          "name": "token_hash",
+          "type": "VARCHAR(255)",
+          "unique": true,
+          "nullable": false
+        },
+        {
+          "name": "device_info",
+          "type": "TEXT"
+        },
+        {
+          "name": "ip_address",
+          "type": "INET"
+        },
+        {
+          "name": "user_agent",
+          "type": "TEXT"
+        },
+        {
+          "name": "location",
+          "type": "VARCHAR(255)"
         },
         {
           "name": "expires_at",
@@ -1036,129 +361,132 @@
         {
           "name": "revoked",
           "type": "BOOLEAN",
-          "nullable": false,
-          "default": "false"
+          "default": false
         },
         {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_used_at",
+          "type": "TIMESTAMP",
+          "default": "CURRENT_TIMESTAMP"
         }
       ],
       "indexes": [
         {
+          "unique": true,
           "columns": [
-            "token"
-          ],
-          "unique": true
+            "token_hash"
+          ]
         },
         {
           "columns": [
             "user_id"
-          ],
-          "unique": false
+          ]
         },
         {
           "columns": [
             "expires_at"
-          ],
-          "unique": false
+          ]
+        },
+        {
+          "columns": [
+            "revoked"
+          ]
+        },
+        {
+          "columns": [
+            "created_at"
+          ]
+        },
+        {
+          "columns": [
+            "last_used_at"
+          ]
         }
       ],
       "foreignKeys": [
         {
           "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "CASCADE"
+          "onDelete": "CASCADE",
+          "references": "users(id)"
         }
       ]
     },
     {
-      "name": "search_suggestions",
+      "name": "login_attempts",
       "columns": [
         {
           "name": "id",
           "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
+          "default": "gen_random_uuid()",
+          "primary": true
         },
         {
-          "name": "text",
+          "name": "email",
           "type": "VARCHAR(255)",
           "nullable": false
         },
         {
-          "name": "type",
-          "type": "VARCHAR(20)",
-          "nullable": false,
-          "check": "type IN ('product', 'category', 'brand', 'query')"
+          "name": "ip_address",
+          "type": "INET",
+          "nullable": false
         },
         {
-          "name": "count",
-          "type": "INTEGER",
-          "nullable": false,
-          "default": "0"
+          "name": "user_agent",
+          "type": "TEXT"
         },
         {
-          "name": "image_url",
-          "type": "VARCHAR(500)",
-          "nullable": true
+          "name": "successful",
+          "type": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "name": "failure_reason",
+          "type": "VARCHAR(100)"
         },
         {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
         }
       ],
       "indexes": [
         {
           "columns": [
-            "text"
-          ],
-          "unique": false,
-          "type": "gin"
+            "email",
+            "created_at"
+          ]
         },
         {
           "columns": [
-            "type"
-          ],
-          "unique": false
+            "ip_address",
+            "created_at"
+          ]
         },
         {
           "columns": [
-            "count"
-          ],
-          "unique": false
+            "successful"
+          ]
+        },
+        {
+          "columns": [
+            "created_at"
+          ]
         }
       ],
       "foreignKeys": []
     },
     {
-      "name": "analytics_events",
+      "name": "audit_logs",
       "columns": [
         {
           "name": "id",
           "type": "UUID",
-          "primary": true,
-          "default": "gen_random_uuid()"
-        },
-        {
-          "name": "event_type",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "timestamp",
-          "type": "TIMESTAMP",
-          "nullable": false
+          "default": "gen_random_uuid()",
+          "primary": true
         },
         {
           "name": "user_id",
@@ -1166,111 +494,66 @@
           "nullable": true
         },
         {
-          "name": "session_id",
+          "name": "action",
           "type": "VARCHAR(100)",
-          "nullable": true
+          "nullable": false
         },
         {
-          "name": "product_id",
-          "type": "UUID",
-          "nullable": true
+          "name": "resource",
+          "type": "VARCHAR(100)"
         },
         {
-          "name": "category_id",
-          "type": "UUID",
-          "nullable": true
+          "name": "resource_id",
+          "type": "VARCHAR(255)"
         },
         {
-          "name": "search_query",
-          "type": "VARCHAR(255)",
-          "nullable": true
+          "name": "details",
+          "type": "JSONB"
         },
         {
-          "name": "filters",
-          "type": "JSON",
-          "nullable": true
+          "name": "ip_address",
+          "type": "INET"
         },
         {
-          "name": "sort_by",
-          "type": "VARCHAR(50)",
-          "nullable": true
-        },
-        {
-          "name": "view_mode",
-          "type": "VARCHAR(10)",
-          "nullable": true
-        },
-        {
-          "name": "device_type",
-          "type": "VARCHAR(10)",
-          "nullable": true,
-          "check": "device_type IN ('mobile', 'tablet', 'desktop')"
-        },
-        {
-          "name": "metadata",
-          "type": "JSON",
-          "nullable": true
+          "name": "user_agent",
+          "type": "TEXT"
         },
         {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "nullable": false,
-          "default": "NOW()"
+          "default": "CURRENT_TIMESTAMP"
         }
       ],
       "indexes": [
         {
           "columns": [
-            "event_type"
-          ],
-          "unique": false
+            "user_id",
+            "created_at"
+          ]
         },
         {
           "columns": [
-            "timestamp"
-          ],
-          "unique": false
+            "action",
+            "created_at"
+          ]
         },
         {
           "columns": [
-            "user_id"
-          ],
-          "unique": false
+            "resource",
+            "resource_id"
+          ]
         },
         {
           "columns": [
-            "session_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "product_id"
-          ],
-          "unique": false
-        },
-        {
-          "columns": [
-            "category_id"
-          ],
-          "unique": false
+            "created_at"
+          ]
         }
       ],
       "foreignKeys": [
         {
           "column": "user_id",
-          "references": "users(id)",
-          "onDelete": "SET NULL"
-        },
-        {
-          "column": "product_id",
-          "references": "products(id)",
-          "onDelete": "SET NULL"
-        },
-        {
-          "column": "category_id",
-          "references": "categories(id)",
-          "onDelete": "SET NULL"
+          "onDelete": "SET NULL",
+          "references": "users(id)"
         }
       ]
     }

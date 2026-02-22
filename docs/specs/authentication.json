@@ -1,33 +1,47 @@
 {
-  "strategy": "JWT",
-  "tokenExpiry": "15m",
-  "refreshTokenExpiry": "7d",
   "roles": [
-    "admin",
     "user",
-    "guest"
+    "admin"
   ],
+  "security": {
+    "lockout": {
+      "maxAttempts": 5,
+      "lockoutDuration": "15 minutes"
+    },
+    "tokenSecurity": {
+      "issuer": "ecommerce-app",
+      "audience": "ecommerce-users",
+      "algorithm": "HS256"
+    },
+    "passwordRequirements": {
+      "minLength": 8,
+      "requireNumbers": true,
+      "requireLowercase": true,
+      "requireUppercase": true,
+      "requireSpecialChars": true
+    }
+  },
+  "strategy": "JWT with refresh tokens",
   "permissions": {
-    "admin": [
-      "read:all",
-      "write:all",
-      "delete:all"
-    ],
     "user": [
-      "read:products",
-      "read:categories",
-      "read:user_preferences",
-      "write:user_preferences",
-      "write:analytics",
-      "write:cart",
-      "write:wishlist",
-      "read:profile",
-      "write:profile"
+      "profile:read",
+      "profile:update",
+      "orders:read",
+      "cart:manage"
     ],
-    "guest": [
-      "read:products",
-      "read:categories",
-      "write:analytics"
+    "admin": [
+      "*"
     ]
-  }
+  },
+  "rateLimiting": {
+    "login": "10 per 15 minutes per IP",
+    "register": "5 per 15 minutes per IP",
+    "forgotPassword": "3 per 15 minutes per email",
+    "resendVerification": "3 per 5 minutes per email"
+  },
+  "accessTokenExpiry": "15m",
+  "refreshTokenExpiry": "30d",
+  "passwordResetExpiry": "1h",
+  "rememberMeTokenExpiry": "30d",
+  "emailVerificationExpiry": "24h"
 }
