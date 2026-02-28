@@ -2,382 +2,361 @@
 
 ## Summary
 
-Comprehensive product requirements for a responsive e-commerce platform featuring adaptive homepage design, advanced product discovery with grid/list views, intelligent search with instant suggestions, and comprehensive filtering/sorting capabilities. The solution prioritizes mobile-first design, accessibility, and performance optimization to deliver seamless shopping experiences across all devices and user needs.
+Comprehensive product requirements for a Hello World function generator platform that serves developers from beginners to experts. The platform provides multi-language support, customization options, user accounts with saving capabilities, sharing features, and full accessibility compliance. MVP focuses on core generation functionality with user authentication, while future versions add advanced features like API access and detailed analytics.
 
 ## Stories
 
-### US-001: Responsive Homepage Layout
+### US-001: User Registration and Account Creation
 
 **Priority:** critical
 **Story Points:** 8
 
 **Description:**
-As a user accessing from any device, I want the homepage to adapt to my screen size, so that I can easily browse featured content and navigate the site
+As a new user, I want to create an account with my email and password, so that I can save my generated functions and access personalized features
 
 **Acceptance Criteria:**
-- [ ] Given I access the homepage on mobile (320px-767px), when the page loads, then the layout stacks vertically with single-column content
-- [ ] Given I access the homepage on tablet (768px-1023px), when the page loads, then the layout shows 2-column grid for featured products
-- [ ] Given I access the homepage on desktop (1024px+), when the page loads, then the layout shows full multi-column design with sidebar
-- [ ] Given I rotate my device, when orientation changes, then the layout adapts within 0.3 seconds
-- [ ] Given I resize browser window, when width changes, then breakpoints trigger smoothly without horizontal scroll
+- [ ] Given I am on the registration page, when I enter a valid email and password meeting requirements (8+ chars, 1 number, 1 special char), then my account is created successfully
+- [ ] Given I enter an email that already exists, when I submit the form, then I see an error message 'Email already registered'
+- [ ] Given I enter an invalid email format, when I submit, then I see 'Please enter a valid email address'
+- [ ] Given I enter a weak password, when I submit, then I see specific password requirements
+- [ ] Given I successfully register, when the account is created, then I receive a verification email within 5 minutes
+- [ ] Given I complete registration, when I try to login before email verification, then I see 'Please verify your email address' message
+- [ ] Given I click the verification link in my email, when the verification completes, then I can login successfully
 
-### US-002: Homepage Hero Banner Display
-
-**Priority:** high
-**Story Points:** 5
-
-**Description:**
-As a visitor, I want to see attractive hero banners showcasing promotions and featured products, so that I can discover current offers and trending items
-
-**Acceptance Criteria:**
-- [ ] Given I visit the homepage, when the page loads, then I see a prominent hero banner with high-quality imagery
-- [ ] Given there are multiple banners, when I wait 5 seconds, then the banner automatically advances to the next one
-- [ ] Given I'm on mobile, when viewing banners, then I can swipe left/right to navigate between them
-- [ ] Given I click on a banner, when it loads, then I'm taken to the relevant product or category page
-- [ ] Given banners are loading, when connection is slow, then I see a loading placeholder with consistent dimensions
-
-### US-003: Featured Products Section
-
-**Priority:** critical
-**Story Points:** 8
-
-**Description:**
-As a shopper, I want to see featured products prominently displayed on the homepage, so that I can quickly discover popular or recommended items
-
-**Acceptance Criteria:**
-- [ ] Given I'm on the homepage, when I scroll down, then I see a clearly labeled 'Featured Products' section
-- [ ] Given I'm on mobile, when viewing featured products, then I see 1-2 products per row with horizontal scrolling
-- [ ] Given I'm on desktop, when viewing featured products, then I see 4-6 products per row in a grid layout
-- [ ] Given I hover over a product (desktop), when mouse enters product area, then I see additional details overlay
-- [ ] Given I tap a product (mobile), when I tap once, then I see quick preview, when I tap again, then I navigate to product page
-
-### US-004: Category Navigation Display
+### US-002: User Authentication and Login
 
 **Priority:** critical
 **Story Points:** 5
 
 **Description:**
-As a user, I want to see main product categories clearly displayed on the homepage, so that I can quickly navigate to products I'm interested in
+As a registered user, I want to login with my credentials, so that I can access my saved functions and personal dashboard
 
 **Acceptance Criteria:**
-- [ ] Given I'm on the homepage, when I look for navigation, then I see main categories displayed prominently
-- [ ] Given I'm on mobile, when viewing categories, then I see a horizontal scrollable list of category cards
-- [ ] Given I'm on desktop, when viewing categories, then I see a grid of category tiles with icons and names
-- [ ] Given I click on a category, when it loads, then I'm taken to the category page with relevant filters pre-applied
-- [ ] Given categories have subcategories, when I hover/tap on a category, then I see a dropdown/expandable list of subcategories
+- [ ] Given I have a verified account, when I enter correct email and password, then I am logged in and redirected to dashboard
+- [ ] Given I enter incorrect credentials, when I submit, then I see 'Invalid email or password' error
+- [ ] Given I haven't verified my email, when I try to login, then I see verification reminder with option to resend
+- [ ] Given I check 'Remember me', when I login successfully, then my session persists for 30 days
+- [ ] Given I don't check 'Remember me', when I login successfully, then my session expires after 24 hours of inactivity
+- [ ] Given I click 'Forgot password', when I enter my email, then I receive password reset instructions
+- [ ] Given I have an active session, when I visit the login page, then I am redirected to my dashboard
 
-### US-005: Product Listing Grid View
-
-**Priority:** critical
-**Story Points:** 8
-
-**Description:**
-As a shopper browsing products, I want to see products in a grid layout, so that I can quickly scan multiple items and compare them visually
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I select grid view, then products display in a responsive grid layout
-- [ ] Given I'm on mobile, when in grid view, then I see 2 products per row with adequate spacing
-- [ ] Given I'm on tablet, when in grid view, then I see 3-4 products per row optimized for touch interaction
-- [ ] Given I'm on desktop, when in grid view, then I see 4-6 products per row with hover effects
-- [ ] Given I scroll down, when reaching the end of loaded products, then more products load automatically (infinite scroll)
-
-### US-006: Product Listing List View
-
-**Priority:** high
-**Story Points:** 5
-
-**Description:**
-As a shopper who prefers detailed information, I want to see products in a list layout, so that I can view more product details and specifications at once
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I select list view, then products display in a vertical list with detailed information
-- [ ] Given I'm viewing list layout, when I see each product, then I see image, title, price, rating, and key specifications
-- [ ] Given I'm on mobile, when in list view, then the layout stacks vertically with optimized touch targets
-- [ ] Given I'm on desktop, when in list view, then I see products with image on left and details on right
-- [ ] Given I want to compare products, when in list view, then I can easily scan prices and ratings vertically
-
-### US-007: View Toggle Switch
-
-**Priority:** high
-**Story Points:** 3
-
-**Description:**
-As a shopper, I want to switch between grid and list views easily, so that I can choose the layout that best suits my browsing preference
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I see the view options, then I see clearly labeled grid and list view toggle buttons
-- [ ] Given I click the grid view button, when it activates, then the layout switches to grid view and button shows active state
-- [ ] Given I click the list view button, when it activates, then the layout switches to list view and button shows active state
-- [ ] Given I switch views, when the layout changes, then the transition is smooth and maintains my current scroll position
-- [ ] Given I refresh the page, when it loads, then my previously selected view preference is remembered
-
-### US-008: Search Bar Display
+### US-003: Language Selection Interface
 
 **Priority:** critical
 **Story Points:** 3
 
 **Description:**
-As a user, I want to see a prominent search bar, so that I can easily search for products I'm looking for
+As a user, I want to select from multiple programming languages, so that I can generate Hello World functions in my preferred language
 
 **Acceptance Criteria:**
-- [ ] Given I'm on any page, when I look for search functionality, then I see a clearly visible search bar in the header
-- [ ] Given I'm on mobile, when I tap the search bar, then it expands or focuses with on-screen keyboard appearing
-- [ ] Given I'm on desktop, when I focus on the search bar, then the cursor appears and I can immediately start typing
-- [ ] Given the search bar is empty, when I see it, then I see helpful placeholder text like 'Search for products...'
-- [ ] Given I start typing, when I enter text, then the search icon changes to a clear/X button to empty the field
+- [ ] Given I am on the main interface, when I view language options, then I see at least 10 popular languages (JavaScript, Python, Java, C++, C#, Go, Rust, PHP, Ruby, Swift)
+- [ ] Given I click on a language option, when selected, then it becomes visually highlighted
+- [ ] Given I have selected a language, when the selection changes, then the output preview updates immediately
+- [ ] Given I search for a language, when I type in the search box, then matching languages are filtered in real-time
+- [ ] Given a language is not available, when I search for it, then I see 'Language not available' with option to request it
+- [ ] Given I am a mobile user, when I view languages, then the selection interface is touch-friendly and responsive
 
-### US-009: Search Instant Suggestions
+### US-004: Basic Hello World Function Generation
 
 **Priority:** critical
+**Story Points:** 5
+
+**Description:**
+As a user, I want to generate a simple Hello World function in my selected language, so that I can quickly get started with basic syntax
+
+**Acceptance Criteria:**
+- [ ] Given I have selected a programming language, when I click 'Generate', then I see a properly formatted Hello World function
+- [ ] Given the function is generated, when I view the output, then it includes proper syntax highlighting
+- [ ] Given the function is displayed, when I view it, then it includes comments explaining key parts
+- [ ] Given I generate a function, when it appears, then it is immediately ready to copy
+- [ ] Given the function is generated, when I test it conceptually, then it would execute without errors
+- [ ] Given I switch languages, when I generate again, then the new function follows that language's conventions
+
+### US-005: Code Copy Functionality
+
+**Priority:** high
+**Story Points:** 2
+
+**Description:**
+As a user, I want to easily copy the generated Hello World function, so that I can paste it into my development environment
+
+**Acceptance Criteria:**
+- [ ] Given a function is generated, when I click the copy button, then the code is copied to my clipboard
+- [ ] Given I successfully copy code, when the action completes, then I see a 'Copied!' confirmation message
+- [ ] Given I copy code, when I paste elsewhere, then the formatting and indentation is preserved
+- [ ] Given I am on a mobile device, when I copy code, then the copy action works reliably
+- [ ] Given the copy fails, when an error occurs, then I see 'Copy failed, please select and copy manually'
+- [ ] Given I hover over the copy button, when I pause, then I see a tooltip 'Copy to clipboard'
+
+### US-006: Function Customization Options
+
+**Priority:** high
 **Story Points:** 8
 
 **Description:**
-As a user typing in the search bar, I want to see instant suggestions, so that I can quickly find what I'm looking for without typing the complete query
+As a user, I want to customize the Hello World function with different options, so that I can adapt it to my specific needs
 
 **Acceptance Criteria:**
-- [ ] Given I start typing in the search bar, when I've entered 2+ characters, then I see a dropdown list of suggestions
-- [ ] Given I see search suggestions, when I view them, then I see a mix of popular searches, product names, and categories
-- [ ] Given I use keyboard navigation, when I press arrow keys, then I can navigate up/down through suggestions
-- [ ] Given I click on a suggestion, when I select it, then the search executes immediately with that term
-- [ ] Given suggestions are loading, when there's a delay, then I see a subtle loading indicator
+- [ ] Given I want to customize the function, when I expand customization options, then I see fields for function name, output message, and parameter options
+- [ ] Given I change the function name, when I generate, then the new name is used throughout the function
+- [ ] Given I modify the output message, when I generate, then the custom message appears instead of 'Hello World'
+- [ ] Given I add parameters, when I generate, then the function includes parameter handling
+- [ ] Given I select different output formats (console, return, etc.), when I generate, then the function uses the appropriate method
+- [ ] Given I reset customizations, when I click reset, then all options return to defaults
 
-### US-010: Search Results Display
+### US-007: Save Generated Functions
 
-**Priority:** critical
+**Priority:** high
 **Story Points:** 5
 
 **Description:**
-As a user who has searched for products, I want to see relevant results clearly displayed, so that I can find and select the products I'm looking for
+As a registered user, I want to save my generated functions, so that I can access them later and build a personal library
 
 **Acceptance Criteria:**
-- [ ] Given I submit a search query, when results load, then I see products matching my search terms
-- [ ] Given I see search results, when I view the page, then I see the search term highlighted and result count displayed
-- [ ] Given no results are found, when my search completes, then I see a helpful message with alternative suggestions
-- [ ] Given I have search results, when I view them, then I can switch between grid and list views
-- [ ] Given results are loading, when I wait, then I see appropriate loading states for better user experience
+- [ ] Given I am logged in and have generated a function, when I click 'Save', then the function is saved to my account
+- [ ] Given I save a function, when I provide a name, then it's saved with that custom name
+- [ ] Given I don't provide a name, when I save, then it's saved with an auto-generated name including language and timestamp
+- [ ] Given I try to save with a duplicate name, when I submit, then I see 'Name already exists, choose another'
+- [ ] Given I save successfully, when the action completes, then I see 'Function saved successfully'
+- [ ] Given I am not logged in, when I try to save, then I see a prompt to login or register
 
-### US-011: Price Filter
+### US-008: View Saved Functions Library
 
-**Priority:** critical
+**Priority:** medium
 **Story Points:** 5
 
 **Description:**
-As a shopper, I want to filter products by price range, so that I can find items within my budget
+As a registered user, I want to view all my saved functions, so that I can easily access and manage my collection
 
 **Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I look for filters, then I see a price range filter option
-- [ ] Given I interact with price filter, when I adjust the range, then I can set minimum and maximum price values
-- [ ] Given I set a price range, when I apply the filter, then only products within that range are displayed
-- [ ] Given I'm on mobile, when using price filter, then I see a slider interface optimized for touch
-- [ ] Given I'm on desktop, when using price filter, then I can use both slider and text input for precise values
+- [ ] Given I am logged in, when I visit my library, then I see all my saved functions in a organized list
+- [ ] Given I have many saved functions, when I view my library, then functions are paginated (20 per page)
+- [ ] Given I want to find a specific function, when I search my library, then results filter in real-time
+- [ ] Given I view a function in my library, when I see the preview, then I can see the language, name, and creation date
+- [ ] Given I click on a saved function, when I select it, then it loads into the main interface for editing
+- [ ] Given I want to organize my functions, when I sort, then I can sort by name, language, or date created
 
-### US-012: Category Filter
+### US-009: Delete Saved Functions
 
-**Priority:** critical
+**Priority:** medium
+**Story Points:** 3
+
+**Description:**
+As a registered user, I want to delete saved functions I no longer need, so that I can keep my library organized
+
+**Acceptance Criteria:**
+- [ ] Given I am viewing my saved functions, when I click delete on a function, then I see a confirmation dialog
+- [ ] Given I confirm deletion, when I proceed, then the function is permanently removed from my library
+- [ ] Given I cancel deletion, when I click cancel, then the function remains in my library
+- [ ] Given I delete a function, when the action completes, then I see 'Function deleted successfully'
+- [ ] Given I try to access a deleted function, when I use an old link, then I see 'Function not found' error
+- [ ] Given I select multiple functions, when I choose bulk delete, then I can delete multiple items at once
+
+### US-010: Export Functions to File
+
+**Priority:** medium
 **Story Points:** 5
 
 **Description:**
-As a shopper, I want to filter products by category, so that I can narrow down results to specific types of products I'm interested in
+As a user, I want to export generated functions to various file formats, so that I can integrate them into my projects easily
 
 **Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I see filters, then I see a category filter with available categories listed
-- [ ] Given I select one or more categories, when I apply the filter, then only products from selected categories are shown
-- [ ] Given categories have subcategories, when I expand a category, then I see nested subcategory options
-- [ ] Given I have selected categories, when I view them, then I see selected categories highlighted with ability to deselect
-- [ ] Given I select a category, when results update, then the product count for each remaining category updates accordingly
+- [ ] Given I have generated a function, when I click export, then I can choose from multiple format options (.js, .py, .java, .txt, etc.)
+- [ ] Given I select a file format, when I export, then the file downloads with proper extension and formatting
+- [ ] Given I export multiple functions, when I select bulk export, then I get a ZIP file containing all functions
+- [ ] Given I export a function, when the file is created, then it includes metadata comments (creation date, language, etc.)
+- [ ] Given the export fails, when an error occurs, then I see a helpful error message
+- [ ] Given I am on mobile, when I export, then the file is properly handled by the mobile browser
 
-### US-013: Rating Filter
+### US-011: Function Sharing via URL
+
+**Priority:** medium
+**Story Points:** 3
+
+**Description:**
+As a user, I want to share generated functions via unique URLs, so that I can collaborate with others or reference functions later
+
+**Acceptance Criteria:**
+- [ ] Given I have generated a function, when I click 'Share', then I get a unique shareable URL
+- [ ] Given I copy the share URL, when someone visits it, then they see the exact function I generated
+- [ ] Given I share a customized function, when others view it, then they see all my customizations applied
+- [ ] Given a shared URL is accessed, when viewed, then the recipient can copy or generate similar functions
+- [ ] Given I share a URL, when I choose expiration options, then the link expires after the selected time period
+- [ ] Given a shared URL expires, when accessed, then viewers see 'This shared function has expired'
+
+### US-012: Responsive Mobile Interface
+
+**Priority:** high
+**Story Points:** 5
+
+**Description:**
+As a mobile user, I want the interface to work seamlessly on my phone or tablet, so that I can generate functions on any device
+
+**Acceptance Criteria:**
+- [ ] Given I access the site on mobile, when the page loads, then all elements are properly sized and accessible
+- [ ] Given I am using a phone, when I interact with language selection, then the interface is touch-friendly
+- [ ] Given I view generated code on mobile, when displayed, then the code is readable without horizontal scrolling
+- [ ] Given I need to copy code on mobile, when I tap copy, then it works reliably across different mobile browsers
+- [ ] Given I use the customization options, when on mobile, then forms are easy to fill out with touch input
+- [ ] Given I rotate my device, when orientation changes, then the layout adapts appropriately
+
+### US-013: Syntax Highlighting and Code Display
 
 **Priority:** high
 **Story Points:** 3
 
 **Description:**
-As a shopper, I want to filter products by customer rating, so that I can focus on highly-rated items
+As a user, I want generated code to have proper syntax highlighting, so that I can easily read and understand the function structure
 
 **Acceptance Criteria:**
-- [ ] Given I'm viewing product listings, when I see filter options, then I see a rating filter with star rating options
-- [ ] Given I select a minimum rating, when I apply the filter, then only products with that rating or higher are displayed
-- [ ] Given I click on 4 stars, when the filter applies, then I see products with 4+ star ratings
-- [ ] Given I see rating options, when I view them, then I see the number of products available for each rating level
-- [ ] Given I have applied rating filter, when I view results, then the selected rating threshold is clearly indicated
+- [ ] Given a function is generated, when displayed, then keywords are highlighted in appropriate colors
+- [ ] Given I view the code, when displayed, then strings, comments, and operators have distinct coloring
+- [ ] Given I switch between languages, when code is shown, then highlighting adapts to that language's syntax
+- [ ] Given I view code in different themes, when I change themes, then highlighting remains clear and readable
+- [ ] Given the code is complex, when displayed, then proper indentation is maintained
+- [ ] Given I print or export code, when processed, then highlighting is preserved where possible
 
-### US-014: Sort Options
-
-**Priority:** critical
-**Story Points:** 3
-
-**Description:**
-As a shopper, I want to sort products by different criteria, so that I can organize results according to my preferences
-
-**Acceptance Criteria:**
-- [ ] Given I'm on a product listing page, when I look for sorting options, then I see a dropdown or button group with sort options
-- [ ] Given I see sort options, when I view them, then I see options like 'Price Low to High', 'Price High to Low', 'Newest First', 'Best Rating', 'Most Popular'
-- [ ] Given I select a sort option, when it applies, then products reorder immediately according to the selected criteria
-- [ ] Given I have sorted products, when I view the results, then the current sort option is clearly indicated as active
-- [ ] Given I change sort options, when the new sort applies, then my current page position is maintained for continuity
-
-### US-015: Filter Sidebar Responsive Design
-
-**Priority:** critical
-**Story Points:** 8
-
-**Description:**
-As a user on any device, I want filter options to be easily accessible and well-organized, so that I can efficiently narrow down product results
-
-**Acceptance Criteria:**
-- [ ] Given I'm on desktop, when I view product listings, then filters appear in a sidebar on the left side of the page
-- [ ] Given I'm on tablet, when I view product listings, then filters appear in a collapsible sidebar or top section
-- [ ] Given I'm on mobile, when I view product listings, then filters appear behind a 'Filter' button that opens a modal or drawer
-- [ ] Given I open filters on mobile, when the filter panel appears, then it overlays the content with easy close functionality
-- [ ] Given I apply filters, when I close the filter panel, then applied filters are summarized in a compact view
-
-### US-016: Applied Filters Display
+### US-014: Error Handling and Validation
 
 **Priority:** high
 **Story Points:** 3
 
 **Description:**
-As a shopper who has applied filters, I want to see which filters are currently active, so that I can understand what's limiting my results and easily modify them
+As a user, I want clear error messages when something goes wrong, so that I can understand and resolve issues quickly
 
 **Acceptance Criteria:**
-- [ ] Given I have applied filters, when I view the product listing, then I see a summary of active filters above the results
-- [ ] Given I see active filters, when I view them, then each filter appears as a removable tag or chip
-- [ ] Given I click on a filter tag, when I interact with it, then that specific filter is removed and results update
-- [ ] Given I have multiple filters applied, when I want to clear all, then I see a 'Clear All Filters' button
-- [ ] Given I remove a filter, when the change applies, then the result count updates and products refresh accordingly
+- [ ] Given an error occurs during function generation, when it happens, then I see a specific, helpful error message
+- [ ] Given I enter invalid customization parameters, when I try to generate, then I see validation errors with suggestions
+- [ ] Given the service is temporarily unavailable, when I try to use it, then I see 'Service temporarily unavailable, please try again'
+- [ ] Given my internet connection fails, when an action fails, then I see 'Connection error, please check your internet'
+- [ ] Given I encounter a bug, when it occurs, then I see an error message with a way to report the issue
+- [ ] Given errors are displayed, when shown, then they are visually distinct and easy to dismiss
 
-### US-017: Mobile Touch Interactions
+### US-015: Function Templates and Examples
 
-**Priority:** critical
+**Priority:** medium
 **Story Points:** 5
 
 **Description:**
-As a mobile user, I want all interactive elements to be touch-friendly, so that I can easily navigate and use the site on my mobile device
+As a learning user, I want to see example templates and variations, so that I can learn different patterns and best practices
 
 **Acceptance Criteria:**
-- [ ] Given I'm using the site on mobile, when I tap any interactive element, then it has adequate size (44px minimum) for easy tapping
-- [ ] Given I tap buttons or links, when I interact with them, then I see visual feedback like color changes or animations
-- [ ] Given I use swipe gestures, when appropriate, then I can swipe through product carousels and image galleries
-- [ ] Given I scroll through content, when I swipe up/down, then scrolling is smooth without lag or jankiness
-- [ ] Given I use pinch-to-zoom on product images, when I zoom, then images scale appropriately without breaking layout
+- [ ] Given I want to explore options, when I view templates, then I see multiple Hello World variations (basic, with parameters, OOP style, etc.)
+- [ ] Given I select a template, when I choose it, then the function generates with that specific pattern
+- [ ] Given I view a template, when displayed, then I see a brief description of when to use this pattern
+- [ ] Given I am learning, when I explore templates, then I see beginner, intermediate, and advanced versions
+- [ ] Given I want best practices, when I view templates, then I see code that follows language conventions
+- [ ] Given I compare templates, when viewing multiple, then differences are clearly highlighted
 
-### US-018: Loading States and Performance
+### US-016: Keyboard Shortcuts and Quick Actions
 
-**Priority:** high
+**Priority:** low
+**Story Points:** 3
+
+**Description:**
+As a power user, I want keyboard shortcuts for common actions, so that I can work more efficiently
+
+**Acceptance Criteria:**
+- [ ] Given I am using the interface, when I press Ctrl+C (or Cmd+C), then the current function is copied to clipboard
+- [ ] Given I want to generate quickly, when I press Ctrl+Enter, then the function generates with current settings
+- [ ] Given I need help, when I press '?' or F1, then I see a shortcut reference guide
+- [ ] Given I want to search languages, when I press '/' then focus moves to the language search box
+- [ ] Given I want to save, when I press Ctrl+S, then the save dialog opens (if logged in)
+- [ ] Given shortcuts are available, when I hover over buttons, then tooltips show the keyboard shortcut
+
+### US-017: Dark Mode Theme Support
+
+**Priority:** medium
+**Story Points:** 3
+
+**Description:**
+As a user who prefers dark interfaces, I want a dark mode option, so that I can use the tool comfortably in low-light conditions
+
+**Acceptance Criteria:**
+- [ ] Given I want dark mode, when I toggle the theme switcher, then the entire interface switches to dark colors
+- [ ] Given I am in dark mode, when I view code, then syntax highlighting works well with the dark background
+- [ ] Given I switch themes, when the change occurs, then my preference is remembered for future visits
+- [ ] Given I use the system dark mode, when I first visit, then the interface respects my system preference
+- [ ] Given I switch between themes, when toggling, then the transition is smooth and not jarring
+- [ ] Given I am in dark mode, when I view all UI elements, then contrast ratios meet accessibility standards
+
+### US-018: Usage Statistics and Analytics
+
+**Priority:** low
 **Story Points:** 5
 
 **Description:**
-As a user, I want to see appropriate loading indicators when content is being fetched, so that I understand the system is working and know what to expect
+As a user, I want to see statistics about my usage, so that I can track my learning progress and most-used languages
 
 **Acceptance Criteria:**
-- [ ] Given I navigate to any page, when content is loading, then I see skeleton screens or loading indicators that match the expected content layout
-- [ ] Given I apply filters or sort options, when results are updating, then I see a subtle loading overlay on the product grid
-- [ ] Given images are loading, when they're being fetched, then I see placeholder boxes that maintain layout stability
-- [ ] Given I search for products, when results are being fetched, then I see a loading state in the search suggestions dropdown
-- [ ] Given loading takes more than 3 seconds, when I'm waiting, then I see progress indicators or helpful messaging
+- [ ] Given I am logged in, when I view my profile, then I see statistics on languages I've used most
+- [ ] Given I have been using the service, when I check stats, then I see total functions generated and saved
+- [ ] Given I want to track progress, when I view analytics, then I see usage over time (daily/weekly/monthly)
+- [ ] Given I use multiple languages, when viewing stats, then I see a breakdown by programming language
+- [ ] Given I have shared functions, when I check analytics, then I see how many times my shared functions were accessed
+- [ ] Given I want privacy, when I view settings, then I can opt out of detailed analytics tracking
 
-### US-019: Cross-Browser Compatibility
+### US-019: Guest User Functionality
 
-**Priority:** high
+**Priority:** medium
+**Story Points:** 3
+
+**Description:**
+As a guest user, I want to use basic functionality without creating an account, so that I can evaluate the service before committing
+
+**Acceptance Criteria:**
+- [ ] Given I am not logged in, when I visit the site, then I can select languages and generate basic Hello World functions
+- [ ] Given I am a guest, when I generate functions, then I can copy and export them without restrictions
+- [ ] Given I try to save as a guest, when I click save, then I see a prompt to register with benefits explained
+- [ ] Given I use advanced features as a guest, when I try to access them, then I see 'Register for full features' messaging
+- [ ] Given I generate multiple functions as a guest, when I use the site, then I have a temporary session for the current visit
+- [ ] Given I am a guest, when I see registration prompts, then they are helpful but not intrusive
+
+### US-020: API Access for Developers
+
+**Priority:** low
 **Story Points:** 8
 
 **Description:**
-As a user accessing the site from different browsers, I want consistent functionality and appearance, so that I have a reliable experience regardless of my browser choice
+As a developer, I want API access to generate functions programmatically, so that I can integrate this functionality into my own tools
 
 **Acceptance Criteria:**
-- [ ] Given I access the site in Chrome, Firefox, Safari, or Edge, when I use core features, then all functionality works correctly
-- [ ] Given I use an older browser version, when features aren't supported, then I see graceful fallbacks that maintain usability
-- [ ] Given I disable JavaScript, when I visit the site, then basic content and navigation remain accessible
-- [ ] Given I use different browser zoom levels, when I view content, then layouts remain functional and readable
-- [ ] Given I test responsive breakpoints, when I resize in different browsers, then behavior is consistent across browsers
+- [ ] Given I am a registered developer, when I request API access, then I can generate API keys from my dashboard
+- [ ] Given I have an API key, when I make requests, then I can generate functions for any supported language
+- [ ] Given I use the API, when I make requests, then I receive properly formatted JSON responses
+- [ ] Given I exceed rate limits, when making requests, then I receive appropriate HTTP status codes and error messages
+- [ ] Given I want to customize functions via API, when I send parameters, then the API respects all customization options
+- [ ] Given I need documentation, when I access the API docs, then I see comprehensive examples and endpoint information
 
-### US-020: Accessibility Features
-
-**Priority:** critical
-**Story Points:** 8
-
-**Description:**
-As a user with accessibility needs, I want the site to be fully accessible, so that I can use all features regardless of my abilities
-
-**Acceptance Criteria:**
-- [ ] Given I use a screen reader, when I navigate the site, then all content and interactive elements are properly announced
-- [ ] Given I navigate using only keyboard, when I tab through the site, then I can access all interactive elements with visible focus indicators
-- [ ] Given I have visual impairments, when I view the site, then color contrast meets WCAG AA standards for all text and interactive elements
-- [ ] Given I use voice control software, when I give commands, then buttons and links have appropriate accessible names
-- [ ] Given I need larger text, when I increase browser text size to 200%, then content remains readable and functional
-
-### US-021: Site Performance Optimization
-
-**Priority:** high
-**Story Points:** 8
-
-**Description:**
-As a user, I want the site to load quickly and respond smoothly to my interactions, so that I can shop efficiently without frustration
-
-**Acceptance Criteria:**
-- [ ] Given I visit any page, when it loads, then the initial content appears within 2 seconds on 3G connection
-- [ ] Given I interact with any feature, when I click or tap, then I see visual feedback within 100ms
-- [ ] Given I scroll through product listings, when I move through the page, then scrolling maintains 60fps performance
-- [ ] Given I apply filters or change views, when the page updates, then changes complete within 1 second
-- [ ] Given I navigate between pages, when I click links, then subsequent pages load with perceived performance under 1 second
-
-### US-022: Error Handling and Recovery
+### US-021: Performance and Loading Optimization
 
 **Priority:** high
 **Story Points:** 5
 
 **Description:**
-As a user encountering errors, I want clear feedback and recovery options, so that I can understand what went wrong and how to proceed
+As a user, I want the application to load quickly and respond instantly, so that my workflow is not interrupted by slow performance
 
 **Acceptance Criteria:**
-- [ ] Given a network error occurs, when I try to load content, then I see a friendly error message with a retry button
-- [ ] Given search returns no results, when I see the empty state, then I get suggestions for alternative searches or categories
-- [ ] Given filters produce no results, when I apply them, then I see a message explaining no products match and suggest removing some filters
-- [ ] Given an image fails to load, when it errors, then I see a placeholder image that maintains layout
-- [ ] Given the page fails to load completely, when I encounter an error, then I see an error page with navigation options to return to working areas
+- [ ] Given I visit the site, when the page loads, then the initial page load completes in under 3 seconds
+- [ ] Given I generate a function, when I click generate, then the function appears in under 1 second
+- [ ] Given I switch between languages, when I change selection, then the interface responds immediately
+- [ ] Given I have a slow internet connection, when using the site, then core functionality still works reliably
+- [ ] Given the site is under load, when many users are active, then my experience remains responsive
+- [ ] Given I use the mobile version, when interacting, then performance matches the desktop experience
 
-### US-023: URL State Management
+### US-022: Accessibility Features
 
 **Priority:** high
 **Story Points:** 5
 
 **Description:**
-As a user, I want URLs to reflect my current state (filters, search, pagination), so that I can bookmark, share, or refresh without losing my place
+As a user with accessibility needs, I want the interface to be fully accessible, so that I can use all features regardless of my abilities
 
 **Acceptance Criteria:**
-- [ ] Given I apply filters, when I look at the URL, then it includes parameters reflecting my current filter selections
-- [ ] Given I search for products, when I see the URL, then it includes my search query as a parameter
-- [ ] Given I copy and share a URL with filters, when someone else visits it, then they see the same filtered results I was viewing
-- [ ] Given I refresh the page, when it reloads, then all my current filters, search, and pagination state are preserved
-- [ ] Given I use browser back/forward buttons, when I navigate, then the page state updates to match the URL in history
-
-### US-024: Product Card Interactions
-
-**Priority:** high
-**Story Points:** 5
-
-**Description:**
-As a shopper viewing products, I want interactive product cards that provide quick access to key information and actions, so that I can efficiently evaluate products
-
-**Acceptance Criteria:**
-- [ ] Given I hover over a product card on desktop, when my mouse enters the area, then I see additional information like quick view or add to wishlist buttons
-- [ ] Given I see a product card, when I view it, then I see product image, title, price, rating, and key specifications clearly displayed
-- [ ] Given I click on a product image or title, when I interact with it, then I navigate to the full product details page
-- [ ] Given products have multiple images, when I hover over the product card, then I see image thumbnails or can cycle through images
-- [ ] Given a product is on sale, when I see the card, then both original and sale prices are displayed with clear visual distinction
-
-### US-025: Pagination and Infinite Scroll
-
-**Priority:** high
-**Story Points:** 8
-
-**Description:**
-As a user browsing many products, I want an efficient way to navigate through multiple pages of results, so that I can explore the full catalog without performance issues
-
-**Acceptance Criteria:**
-- [ ] Given I'm viewing product results with many pages, when I scroll to the bottom, then additional products load automatically (infinite scroll)
-- [ ] Given I prefer traditional pagination, when I look for navigation controls, then I see page numbers and next/previous buttons as an alternative option
-- [ ] Given I'm on mobile with infinite scroll, when new content loads, then I see a subtle loading indicator and smooth content addition
-- [ ] Given I've scrolled through many products, when I want to return to top, then I see a floating 'back to top' button
-- [ ] Given infinite scroll is loading many items, when performance becomes an issue, then the system switches to traditional pagination with user notice
+- [ ] Given I use a screen reader, when I navigate the site, then all elements are properly labeled and announced
+- [ ] Given I navigate by keyboard only, when I use tab navigation, then I can reach all interactive elements
+- [ ] Given I have visual impairments, when I view the interface, then color contrast ratios meet WCAG AA standards
+- [ ] Given I need larger text, when I zoom to 200%, then the interface remains functional and readable
+- [ ] Given I use assistive technology, when interacting with forms, then field labels and error messages are clear
+- [ ] Given I have motor impairments, when I interact with buttons, then touch targets are at least 44px and well-spaced
 
