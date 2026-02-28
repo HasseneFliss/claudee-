@@ -37,51 +37,47 @@ A simple yet powerful Hello World application with modern features.
 - System health monitoring
 - Audit logs viewer
 
-### Multi-language Support
-- Support for 10+ languages
-- Automatic language detection
-- RTL layout support for Arabic/Hebrew
-- Translation management dashboard
+### NEW: AI Chat Assistant
+- Integrated AI chatbot for user support
+- Context-aware responses based on user history
+- Natural language query processing
+- Multi-language support
 
-### Payment Integration
-- Stripe payment processing
-- Subscription management
-- Invoice generation
-- Payment history
-
-### NEW: Two-Factor Authentication (2FA)
-- TOTP-based 2FA with authenticator apps
-- SMS-based 2FA backup
-- Recovery codes
-- Remember trusted devices
-
-### NEW: API Rate Limiting
-- Per-user rate limits
-- Tiered rate limits based on subscription
-- Rate limit headers in responses
-- Graceful degradation
+### NEW: Data Export Feature
+- Export user data in CSV/JSON format
+- Scheduled automatic exports
+- Custom field selection
+- GDPR compliance tools
 
 ## API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | /api/hello | GET | Returns greeting |
+| /api/hello/:name | GET | Personalized greeting |
 | /api/auth/login | POST | User login |
-| /api/auth/2fa/setup | POST | Setup 2FA |
-| /api/auth/2fa/verify | POST | Verify 2FA code |
+| /api/auth/register | POST | User registration |
 | /api/users/profile | GET | Get user profile |
-| /api/notifications | GET | Get notifications |
-| /api/admin/rate-limits | GET | View rate limits |
-| /api/payments/subscribe | POST | Create subscription |
+| /api/users/profile | PUT | Update profile |
+| /api/notifications | GET | Get user notifications |
+| /api/admin/users | GET | List all users (admin only) |
+| /api/ai/chat | POST | Send message to AI assistant |
+| /api/export/data | POST | Export user data |
 
 ## Tech Stack
 - Python 3.11
 - FastAPI
 - PostgreSQL
-- Redis for caching + rate limiting
+- Redis for caching
 - WebSockets for real-time
-- Stripe SDK
-- PyOTP for 2FA
+- OpenAI API for AI features
+
+## Getting Started
+
+```bash
+pip install -r requirements.txt
+python main.py
+```
 
 ## License
 MIT
