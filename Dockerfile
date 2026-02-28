@@ -1,40 +1,29 @@
-# Build stage
-FROM node:18-alpine AS builder
+FROM python:3.11-slim as builder
 
 WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+COPY requirements.txt* ./
+RUN pip install --no-cache-dir -r requirements.txt 2>/dev/null || echo "No requirements.txt"
 
-# Copy source code
+# Copy source
 COPY . .
 
-# Production stage
-FROM node:18-alpine AS production
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nextjs -u 1001
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy dependencies and application
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nextjs:nodejs /app/package*.json ./
-COPY --from=builder --chown=nextjs:nodejs /app/src ./src
+# Create non-root user
+RUN useradd -m -u 1000 appuser
 
-# Switch to non-root user
-USER nextjs
+# Copy from builder
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
-# Expose port
-EXPOSE 3000
+# Set ownership
+RUN chown -R appuser:appuser /app
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/health || exit 1
+USER appuser
 
-# Start the application
-CMD ["npm", "start"]
+# Default command
+CMD ["python", "hello_world.py"]
