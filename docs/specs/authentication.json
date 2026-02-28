@@ -1,41 +1,36 @@
 {
   "roles": [
-    "guest",
-    "user",
-    "admin"
+    "admin",
+    "user"
   ],
-  "strategy": "JWT with Refresh Tokens",
+  "strategy": "JWT with biometric support",
   "permissions": {
-    "user": [
-      "all_guest_permissions",
-      "save_function",
-      "view_saved_functions",
-      "delete_function",
-      "view_statistics",
-      "update_profile"
+    "mobile.register": [
+      "user",
+      "admin"
     ],
-    "admin": [
-      "all_user_permissions",
-      "manage_languages",
-      "manage_templates",
-      "view_all_users",
-      "system_analytics"
+    "biometric.verify": [
+      "user",
+      "admin"
     ],
-    "guest": [
-      "generate_function",
-      "view_templates",
-      "export_function",
-      "share_function"
+    "biometric.register": [
+      "user",
+      "admin"
+    ],
+    "mobile.manage_devices": [
+      "user",
+      "admin"
     ]
   },
   "tokenExpiry": "15m",
-  "rateLimiting": {
-    "login": "5 attempts per 15 minutes per IP",
-    "registration": "3 attempts per hour per IP",
-    "passwordReset": "3 attempts per hour per email"
+  "biometricAuth": {
+    "supportedTypes": [
+      "fingerprint",
+      "face_id",
+      "touch_id"
+    ],
+    "challengeExpiry": "5m",
+    "keyRotationInterval": "30d"
   },
-  "passwordReset": "time-limited tokens via email",
-  "passwordHashing": "bcrypt with 12 rounds",
-  "emailVerification": "required for account activation",
   "refreshTokenExpiry": "7d"
 }
