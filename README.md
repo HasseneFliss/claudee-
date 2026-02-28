@@ -37,48 +37,51 @@ A simple yet powerful Hello World application with modern features.
 - System health monitoring
 - Audit logs viewer
 
-### NEW: Multi-language Support
+### Multi-language Support
 - Support for 10+ languages
 - Automatic language detection
 - RTL layout support for Arabic/Hebrew
 - Translation management dashboard
 
-### NEW: Payment Integration
+### Payment Integration
 - Stripe payment processing
 - Subscription management
 - Invoice generation
 - Payment history
+
+### NEW: Two-Factor Authentication (2FA)
+- TOTP-based 2FA with authenticator apps
+- SMS-based 2FA backup
+- Recovery codes
+- Remember trusted devices
+
+### NEW: API Rate Limiting
+- Per-user rate limits
+- Tiered rate limits based on subscription
+- Rate limit headers in responses
+- Graceful degradation
 
 ## API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | /api/hello | GET | Returns greeting |
-| /api/hello/:name | GET | Personalized greeting |
 | /api/auth/login | POST | User login |
-| /api/auth/register | POST | User registration |
+| /api/auth/2fa/setup | POST | Setup 2FA |
+| /api/auth/2fa/verify | POST | Verify 2FA code |
 | /api/users/profile | GET | Get user profile |
-| /api/users/profile | PUT | Update profile |
-| /api/notifications | GET | Get user notifications |
-| /api/admin/users | GET | List all users (admin only) |
-| /api/i18n/languages | GET | Get supported languages |
+| /api/notifications | GET | Get notifications |
+| /api/admin/rate-limits | GET | View rate limits |
 | /api/payments/subscribe | POST | Create subscription |
-| /api/payments/invoices | GET | Get payment invoices |
 
 ## Tech Stack
 - Python 3.11
 - FastAPI
 - PostgreSQL
-- Redis for caching
+- Redis for caching + rate limiting
 - WebSockets for real-time
 - Stripe SDK
-
-## Getting Started
-
-```bash
-pip install -r requirements.txt
-python main.py
-```
+- PyOTP for 2FA
 
 ## License
 MIT
