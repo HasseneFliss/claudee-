@@ -25,17 +25,29 @@ A simple yet powerful Hello World application with modern features.
 - Avatar upload with image cropping
 - Change password functionality
 
-### NEW: Real-time Notifications
+### Real-time Notifications
 - Push notifications for important events
 - In-app notification center
 - Email notification preferences
 - Websocket-based live updates
 
-### NEW: Admin Dashboard
+### Admin Dashboard
 - User management panel
 - Analytics and metrics visualization
 - System health monitoring
 - Audit logs viewer
+
+### NEW: Multi-language Support
+- Support for 10+ languages
+- Automatic language detection
+- RTL layout support for Arabic/Hebrew
+- Translation management dashboard
+
+### NEW: Payment Integration
+- Stripe payment processing
+- Subscription management
+- Invoice generation
+- Payment history
 
 ## API Endpoints
 
@@ -48,9 +60,10 @@ A simple yet powerful Hello World application with modern features.
 | /api/users/profile | GET | Get user profile |
 | /api/users/profile | PUT | Update profile |
 | /api/notifications | GET | Get user notifications |
-| /api/notifications/settings | PUT | Update notification preferences |
 | /api/admin/users | GET | List all users (admin only) |
-| /api/admin/metrics | GET | System metrics (admin only) |
+| /api/i18n/languages | GET | Get supported languages |
+| /api/payments/subscribe | POST | Create subscription |
+| /api/payments/invoices | GET | Get payment invoices |
 
 ## Tech Stack
 - Python 3.11
@@ -58,6 +71,7 @@ A simple yet powerful Hello World application with modern features.
 - PostgreSQL
 - Redis for caching
 - WebSockets for real-time
+- Stripe SDK
 
 ## Getting Started
 
