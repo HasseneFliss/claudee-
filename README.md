@@ -37,17 +37,23 @@ A simple yet powerful Hello World application with modern features.
 - System health monitoring
 - Audit logs viewer
 
-### NEW: AI Chat Assistant
+### AI Chat Assistant
 - Integrated AI chatbot for user support
 - Context-aware responses based on user history
 - Natural language query processing
 - Multi-language support
 
-### NEW: Data Export Feature
+### Data Export Feature
 - Export user data in CSV/JSON format
 - Scheduled automatic exports
 - Custom field selection
 - GDPR compliance tools
+
+### NEW: Mobile App Support
+- Native iOS and Android apps
+- Push notification support
+- Offline mode capabilities
+- Biometric authentication
 
 ## API Endpoints
 
@@ -63,6 +69,7 @@ A simple yet powerful Hello World application with modern features.
 | /api/admin/users | GET | List all users (admin only) |
 | /api/ai/chat | POST | Send message to AI assistant |
 | /api/export/data | POST | Export user data |
+| /api/mobile/register | POST | Register mobile device |
 
 ## Tech Stack
 - Python 3.11
@@ -71,13 +78,14 @@ A simple yet powerful Hello World application with modern features.
 - Redis for caching
 - WebSockets for real-time
 - OpenAI API for AI features
+- React Native for mobile
 
 ## Getting Started
 
-```bash
+\`\`\`bash
 pip install -r requirements.txt
 python main.py
-```
+\`\`\`
 
 ## License
 MIT
