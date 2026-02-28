@@ -3,7 +3,7 @@
 ## Components
 
 ### Button
-Interactive button for user actions
+Interactive button component for user actions
 
 **Props:**
 - `size`: [object Object]
@@ -19,324 +19,203 @@ Text input field for user data entry
 
 **Props:**
 - `size`: [object Object]
-- `type`: [object Object]
 - `error`: [object Object]
+- `label`: [object Object]
+- `variant`: [object Object]
 - `disabled`: [object Object]
 - `leftIcon`: [object Object]
+- `required`: [object Object]
 - `rightIcon`: [object Object]
+- `helperText`: [object Object]
 - `placeholder`: [object Object]
-
-### SearchInput
-Specialized search input with autocomplete dropdown
-
-**Props:**
-- `loading`: [object Object]
-- `onSearch`: [object Object]
-- `placeholder`: [object Object]
-- `suggestions`: [object Object]
-- `showSuggestions`: [object Object]
 
 ### Card
 Container component for grouping related content
 
 **Props:**
-- `size`: [object Object]
 - `padding`: [object Object]
 - `variant`: [object Object]
-- `clickable`: [object Object]
+- `hoverable`: [object Object]
 
-### ProductCard
-Specialized card for displaying product information
+### Modal
+Overlay dialog for important user interactions
 
 **Props:**
-- `product`: [object Object]
-- `onWishlist`: [object Object]
-- `onAddToCart`: [object Object]
-- `showQuickView`: [object Object]
+- `size`: [object Object]
+- `title`: [object Object]
+- `isOpen`: [object Object]
+- `onClose`: [object Object]
+- `showCloseButton`: [object Object]
+- `closeOnOverlayClick`: [object Object]
 
 ### Select
-Dropdown select input for choosing from options
+Dropdown selection component
 
 **Props:**
 - `value`: [object Object]
 - `options`: [object Object]
+- `disabled`: [object Object]
 - `multiple`: [object Object]
+- `onChange`: [object Object]
 - `searchable`: [object Object]
 - `placeholder`: [object Object]
 
-### Checkbox
-Checkbox input for boolean selections
-
-**Props:**
-- `label`: [object Object]
-- `checked`: [object Object]
-- `disabled`: [object Object]
-- `indeterminate`: [object Object]
-
-### RadioButton
-Radio button for single selection from group
-
-**Props:**
-- `name`: [object Object]
-- `label`: [object Object]
-- `value`: [object Object]
-- `checked`: [object Object]
-- `disabled`: [object Object]
-
-### Switch
-Toggle switch for on/off states
-
-**Props:**
-- `label`: [object Object]
-- `checked`: [object Object]
-- `disabled`: [object Object]
-
-### Badge
-Small status indicator or label
-
-**Props:**
-- `size`: [object Object]
-- `color`: [object Object]
-- `variant`: [object Object]
-
-### Avatar
-User profile image or initials display
-
-**Props:**
-- `alt`: [object Object]
-- `src`: [object Object]
-- `name`: [object Object]
-- `size`: [object Object]
-- `status`: [object Object]
-
-### Modal
-Overlay dialog for important content
-
-**Props:**
-- `size`: [object Object]
-- `title`: [object Object]
-- `isOpen`: [object Object]
-- `onClose`: [object Object]
-- `closeOnOverlayClick`: [object Object]
-
-### Drawer
-Slide-out panel from screen edge
-
-**Props:**
-- `size`: [object Object]
-- `isOpen`: [object Object]
-- `onClose`: [object Object]
-- `placement`: [object Object]
-
-### Popover
-Floating content triggered by user interaction
-
-**Props:**
-- `offset`: [object Object]
-- `trigger`: [object Object]
-- `placement`: [object Object]
-- `closeOnEsc`: [object Object]
-
 ### Alert
-Status messages for user feedback
+Notification component for user feedback
 
 **Props:**
+- `icon`: [object Object]
 - `title`: [object Object]
-- `status`: [object Object]
-- `onClose`: [object Object]
-- `description`: [object Object]
+- `message`: [object Object]
+- `variant`: [object Object]
+- `onDismiss`: [object Object]
 - `dismissible`: [object Object]
 
-### Toast
-Temporary notification messages
+### Badge
+Small status indicator component
 
 **Props:**
-- `title`: [object Object]
-- `status`: [object Object]
-- `duration`: [object Object]
-- `isClosable`: [object Object]
-- `description`: [object Object]
+- `size`: [object Object]
+- `text`: [object Object]
+- `variant`: [object Object]
 
 ### Spinner
-Loading indicator
+Loading indicator component
 
 **Props:**
 - `size`: [object Object]
 - `color`: [object Object]
-- `speed`: [object Object]
 
-### ProgressBar
-Progress indicator for tasks
-
-**Props:**
-- `max`: [object Object]
-- `color`: [object Object]
-- `value`: [object Object]
-- `isIndeterminate`: [object Object]
-
-### Skeleton
-Placeholder for loading content
+### Tooltip
+Contextual information overlay
 
 **Props:**
-- `lines`: [object Object]
-- `width`: [object Object]
-- `height`: [object Object]
+- `delay`: [object Object]
+- `content`: [object Object]
 - `variant`: [object Object]
+- `placement`: [object Object]
 
-### Navbar
-Primary navigation header
-
-**Props:**
-- `logo`: [object Object]
-- `items`: [object Object]
-- `sticky`: [object Object]
-- `actions`: [object Object]
-
-### Sidebar
-Side navigation panel
+### CodeBlock
+Syntax-highlighted code display component
 
 **Props:**
+- `code`: [object Object]
+- `theme`: [object Object]
+- `copyable`: [object Object]
+- `language`: [object Object]
+- `showLineNumbers`: [object Object]
+
+### Navigation
+Main navigation component
+
+**Props:**
 - `items`: [object Object]
-- `overlay`: [object Object]
+- `variant`: [object Object]
 - `collapsed`: [object Object]
-- `collapsible`: [object Object]
+- `activeItem`: [object Object]
+
+### Table
+Data table component
+
+**Props:**
+- `data`: [object Object]
+- `columns`: [object Object]
+- `sortable`: [object Object]
+- `pagination`: [object Object]
+- `selectable`: [object Object]
+
+### Checkbox
+Boolean input component
+
+**Props:**
+- `label`: [object Object]
+- `checked`: [object Object]
+- `disabled`: [object Object]
+- `onChange`: [object Object]
+- `indeterminate`: [object Object]
+
+### RadioGroup
+Single-selection input component
+
+**Props:**
+- `name`: [object Object]
+- `value`: [object Object]
+- `options`: [object Object]
+- `disabled`: [object Object]
+- `onChange`: [object Object]
+
+### Switch
+Toggle switch component
+
+**Props:**
+- `label`: [object Object]
+- `checked`: [object Object]
+- `disabled`: [object Object]
+- `onChange`: [object Object]
 
 ### Tabs
-Tabbed navigation component
+Tab navigation component
 
 **Props:**
-- `size`: [object Object]
-- `items`: [object Object]
+- `tabs`: [object Object]
 - `variant`: [object Object]
-- `activeIndex`: [object Object]
+- `onChange`: [object Object]
+- `activeTab`: [object Object]
 
-### Breadcrumbs
-Hierarchical navigation trail
+### Breadcrumb
+Navigation breadcrumb component
 
 **Props:**
 - `items`: [object Object]
 - `maxItems`: [object Object]
 - `separator`: [object Object]
 
+### Avatar
+User profile image component
+
+**Props:**
+- `alt`: [object Object]
+- `src`: [object Object]
+- `size`: [object Object]
+- `status`: [object Object]
+- `initials`: [object Object]
+
 ### Pagination
-Navigation for paginated content
+Page navigation component
 
 **Props:**
 - `totalPages`: [object Object]
 - `currentPage`: [object Object]
 - `onPageChange`: [object Object]
-- `siblingCount`: [object Object]
+- `showPrevNext`: [object Object]
 - `showFirstLast`: [object Object]
 
-### DataTable
-Data table with sorting and filtering
-
-**Props:**
-- `data`: [object Object]
-- `columns`: [object Object]
-- `sortable`: [object Object]
-- `selection`: [object Object]
-- `filterable`: [object Object]
-- `pagination`: [object Object]
-
-### List
-Vertical list of items
+### Dropdown
+Dropdown menu component
 
 **Props:**
 - `items`: [object Object]
-- `ordered`: [object Object]
-- `spacing`: [object Object]
-- `dividers`: [object Object]
+- `trigger`: [object Object]
+- `placement`: [object Object]
+- `closeOnSelect`: [object Object]
 
-### Tag
-Removable keyword labels
-
-**Props:**
-- `color`: [object Object]
-- `label`: [object Object]
-- `onRemove`: [object Object]
-- `removable`: [object Object]
-
-### Accordion
-Collapsible content sections
-
-**Props:**
-- `items`: [object Object]
-- `defaultIndex`: [object Object]
-- `allowMultiple`: [object Object]
-
-### Slider
-Range input slider control
+### Progress
+Progress indicator component
 
 **Props:**
 - `max`: [object Object]
-- `min`: [object Object]
-- `step`: [object Object]
-- `marks`: [object Object]
-- `value`: [object Object]
-
-### Divider
-Visual separator element
-
-**Props:**
-- `variant`: [object Object]
-- `orientation`: [object Object]
-
-### Tooltip
-Contextual help information
-
-**Props:**
-- `delay`: [object Object]
-- `label`: [object Object]
-- `hasArrow`: [object Object]
-- `placement`: [object Object]
-
-### FilterSidebar
-Specialized sidebar for product filtering
-
-**Props:**
-- `filters`: [object Object]
-- `onClearAll`: [object Object]
-- `appliedFilters`: [object Object]
-- `onFilterChange`: [object Object]
-
-### ViewToggle
-Toggle between grid and list views
-
-**Props:**
-- `view`: [object Object]
-- `onViewChange`: [object Object]
-
-### SortSelect
-Dropdown for sorting options
-
-**Props:**
-- `value`: [object Object]
-- `options`: [object Object]
-- `onChange`: [object Object]
-- `placeholder`: [object Object]
-
-### Container
-Layout container with responsive max-widths
-
-**Props:**
 - `size`: [object Object]
-- `centerContent`: [object Object]
+- `value`: [object Object]
+- `variant`: [object Object]
+- `indeterminate`: [object Object]
 
-### Grid
-CSS Grid layout system
-
-**Props:**
-- `gap`: [object Object]
-- `rows`: [object Object]
-- `columns`: [object Object]
-
-### Stack
-Flexbox layout for stacking elements
+### Toast
+Temporary notification component
 
 **Props:**
-- `align`: [object Object]
-- `justify`: [object Object]
-- `spacing`: [object Object]
-- `direction`: [object Object]
+- `message`: [object Object]
+- `onClose`: [object Object]
+- `variant`: [object Object]
+- `closable`: [object Object]
+- `duration`: [object Object]
 
