@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../k8s/namespace.yaml
+- ../../k8s/deployment.yaml
+- ../../k8s/service.yaml
+- ../../k8s/configmap.yaml
+- ../../k8s/secret.yaml
+- ../../k8s/hpa.yaml
+- ../../k8s/ingress.yaml
+
+commonLabels:
+  app: hello-world
+  version: v1.0.0
+
+images:
+- name: ghcr.io/username/hello-world
+  newTag: latest
