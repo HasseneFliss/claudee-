@@ -1,33 +1,41 @@
 {
-  "strategy": "JWT",
-  "tokenExpiry": "15m",
-  "refreshTokenExpiry": "7d",
   "roles": [
-    "admin",
+    "guest",
     "user",
-    "guest"
+    "admin"
   ],
+  "strategy": "JWT with Refresh Tokens",
   "permissions": {
-    "admin": [
-      "read:all",
-      "write:all",
-      "delete:all"
-    ],
     "user": [
-      "read:products",
-      "read:categories",
-      "read:user_preferences",
-      "write:user_preferences",
-      "write:analytics",
-      "write:cart",
-      "write:wishlist",
-      "read:profile",
-      "write:profile"
+      "all_guest_permissions",
+      "save_function",
+      "view_saved_functions",
+      "delete_function",
+      "view_statistics",
+      "update_profile"
+    ],
+    "admin": [
+      "all_user_permissions",
+      "manage_languages",
+      "manage_templates",
+      "view_all_users",
+      "system_analytics"
     ],
     "guest": [
-      "read:products",
-      "read:categories",
-      "write:analytics"
+      "generate_function",
+      "view_templates",
+      "export_function",
+      "share_function"
     ]
-  }
+  },
+  "tokenExpiry": "15m",
+  "rateLimiting": {
+    "login": "5 attempts per 15 minutes per IP",
+    "registration": "3 attempts per hour per IP",
+    "passwordReset": "3 attempts per hour per email"
+  },
+  "passwordReset": "time-limited tokens via email",
+  "passwordHashing": "bcrypt with 12 rounds",
+  "emailVerification": "required for account activation",
+  "refreshTokenExpiry": "7d"
 }
