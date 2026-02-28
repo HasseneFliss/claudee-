@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: hello-world-staging
+
+resources:
+- ../../base
+
+patches:
+- patch: |
+    - op: replace
+      path: /spec/replicas
+      value: 1
+  target:
+    kind: Deployment
+    name: hello-world
+- patch: |
+    - op: replace
+      path: /spec/minReplicas
+      value: 1
+    - op: replace
+      path: /spec/maxReplicas
+      value: 3
+  target:
+    kind: HorizontalPodAutoscaler
+    name: hello-world
+- patch: |
+    - op: replace
+      path: /spec/rules/0/host
+      value: hello-world-staging.example.com
+    - op: replace
+      path: /spec/tls/0/hosts/0
+      value: hello-world-staging.example.com
+  target:
+    kind: Ingress
+    name: hello-world
+
+replicas:
+- name: hello-world
+  count: 1
+
+commonLabels:
+  environment: staging
