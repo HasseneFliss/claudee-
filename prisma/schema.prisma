@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sales {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  saleDate         DateTime @default(now()) @map("sale_date") @db.Timestamp(6)
+  customerName     String   @map("customer_name") @db.VarChar(255)
+  customerEmail    String?  @map("customer_email") @db.VarChar(255)
+  productName      String   @map("product_name") @db.VarChar(255)
+  quantity         Int      @default(1)
+  unitPrice        Decimal  @map("unit_price") @db.Decimal(10, 2)
+  totalAmount      Decimal  @map("total_amount") @db.Decimal(10, 2)
+  discountPercent  Decimal? @default(0) @map("discount_percent") @db.Decimal(5, 2)
+  taxAmount        Decimal? @default(0) @map("tax_amount") @db.Decimal(10, 2)
+  paymentMethod    String?  @map("payment_method") @db.VarChar(50)
+  salesRep         String?  @map("sales_rep") @db.VarChar(255)
+  status           String   @default("completed") @db.VarChar(20)
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([saleDate], map: "idx_sales_sale_date")
+  @@index([customerName], map: "idx_sales_customer_name")
+  @@index([customerEmail], map: "idx_sales_customer_email")
+  @@index([productName], map: "idx_sales_product_name")
+  @@index([status], map: "idx_sales_status")
+  @@index([salesRep], map: "idx_sales_sales_rep")
+  @@map("sales")
+}
