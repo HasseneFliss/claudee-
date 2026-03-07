@@ -1,109 +1,7 @@
 {
   "tables": [
     {
-      "name": "users",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "default": "gen_random_uuid()",
-          "primary": true
-        },
-        {
-          "name": "email",
-          "type": "VARCHAR(255)",
-          "unique": true,
-          "nullable": false
-        },
-        {
-          "name": "password_hash",
-          "type": "VARCHAR(255)",
-          "nullable": false
-        },
-        {
-          "name": "first_name",
-          "type": "VARCHAR(50)",
-          "nullable": true
-        },
-        {
-          "name": "last_name",
-          "type": "VARCHAR(50)",
-          "nullable": true
-        },
-        {
-          "name": "email_verified",
-          "type": "BOOLEAN",
-          "default": false,
-          "nullable": false
-        },
-        {
-          "name": "email_verification_token",
-          "type": "VARCHAR(255)",
-          "nullable": true
-        },
-        {
-          "name": "password_reset_token",
-          "type": "VARCHAR(255)",
-          "nullable": true
-        },
-        {
-          "name": "password_reset_expires",
-          "type": "TIMESTAMP",
-          "nullable": true
-        },
-        {
-          "name": "preferences",
-          "type": "JSONB",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "last_login_at",
-          "type": "TIMESTAMP",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "unique": true,
-          "columns": [
-            "email"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "email_verification_token"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "password_reset_token"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "created_at"
-          ]
-        }
-      ],
-      "foreignKeys": []
-    },
-    {
-      "name": "user_sessions",
+      "name": "mobile_devices",
       "columns": [
         {
           "name": "id",
@@ -117,299 +15,55 @@
           "nullable": false
         },
         {
-          "name": "refresh_token_hash",
-          "type": "VARCHAR(255)",
-          "nullable": false
-        },
-        {
-          "name": "expires_at",
-          "type": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "last_used_at",
-          "type": "TIMESTAMP",
-          "nullable": true
-        },
-        {
-          "name": "user_agent",
-          "type": "TEXT",
-          "nullable": true
-        },
-        {
-          "name": "ip_address",
-          "type": "INET",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "unique": false,
-          "columns": [
-            "user_id"
-          ]
-        },
-        {
-          "unique": true,
-          "columns": [
-            "refresh_token_hash"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "expires_at"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "user_id",
-          "onDelete": "CASCADE",
-          "references": "users(id)"
-        }
-      ]
-    },
-    {
-      "name": "languages",
-      "columns": [
-        {
-          "name": "id",
-          "type": "VARCHAR(50)",
-          "primary": true
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "display_name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "extension",
+          "name": "platform",
           "type": "VARCHAR(10)",
           "nullable": false
         },
         {
-          "name": "category",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "icon",
+          "name": "device_id",
           "type": "VARCHAR(255)",
-          "nullable": true
-        },
-        {
-          "name": "popularity",
-          "type": "INTEGER",
-          "default": 0,
           "nullable": false
         },
         {
-          "name": "syntax_highlighting",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "active",
-          "type": "BOOLEAN",
-          "default": true,
-          "nullable": false
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "unique": false,
-          "columns": [
-            "category"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "popularity"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "active"
-          ]
-        }
-      ],
-      "foreignKeys": []
-    },
-    {
-      "name": "function_templates",
-      "columns": [
-        {
-          "name": "id",
-          "type": "VARCHAR(50)",
-          "primary": true
-        },
-        {
-          "name": "name",
+          "name": "device_name",
           "type": "VARCHAR(100)",
           "nullable": false
         },
         {
-          "name": "description",
+          "name": "push_token",
           "type": "TEXT",
-          "nullable": false
+          "nullable": true
         },
         {
-          "name": "language_id",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "difficulty",
+          "name": "app_version",
           "type": "VARCHAR(20)",
-          "nullable": false
+          "nullable": true
         },
         {
-          "name": "category",
+          "name": "os_version",
           "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "template",
-          "type": "TEXT",
-          "nullable": false
-        },
-        {
-          "name": "example",
-          "type": "TEXT",
           "nullable": true
         },
         {
-          "name": "tags",
-          "type": "TEXT[]",
+          "name": "timezone",
+          "type": "VARCHAR(50)",
           "nullable": true
         },
         {
-          "name": "active",
+          "name": "last_active",
+          "type": "TIMESTAMP",
+          "nullable": true
+        },
+        {
+          "name": "registered_at",
+          "type": "TIMESTAMP",
+          "default": "NOW()",
+          "nullable": false
+        },
+        {
+          "name": "biometric_enabled",
           "type": "BOOLEAN",
-          "default": true,
-          "nullable": false
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "indexes": [
-        {
-          "unique": false,
-          "columns": [
-            "language_id"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "difficulty"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "category"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "active"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "language_id",
-          "onDelete": "CASCADE",
-          "references": "languages(id)"
-        }
-      ]
-    },
-    {
-      "name": "saved_functions",
-      "columns": [
-        {
-          "name": "id",
-          "type": "UUID",
-          "default": "gen_random_uuid()",
-          "primary": true
-        },
-        {
-          "name": "user_id",
-          "type": "UUID",
-          "nullable": false
-        },
-        {
-          "name": "name",
-          "type": "VARCHAR(100)",
-          "nullable": false
-        },
-        {
-          "name": "description",
-          "type": "TEXT",
-          "nullable": true
-        },
-        {
-          "name": "language_id",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "code",
-          "type": "TEXT",
-          "nullable": false
-        },
-        {
-          "name": "customizations",
-          "type": "JSONB",
-          "nullable": true
-        },
-        {
-          "name": "tags",
-          "type": "TEXT[]",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "updated_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
+          "default": "false",
           "nullable": false
         }
       ],
@@ -418,38 +72,18 @@
           "unique": false,
           "columns": [
             "user_id"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "language_id"
           ]
         },
         {
           "unique": true,
           "columns": [
-            "user_id",
-            "name"
+            "device_id"
           ]
         },
         {
           "unique": false,
           "columns": [
-            "created_at"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "updated_at"
-          ]
-        },
-        {
-          "type": "GIN",
-          "unique": false,
-          "columns": [
-            "tags"
+            "push_token"
           ]
         }
       ],
@@ -458,101 +92,11 @@
           "column": "user_id",
           "onDelete": "CASCADE",
           "references": "users(id)"
-        },
-        {
-          "column": "language_id",
-          "onDelete": "RESTRICT",
-          "references": "languages(id)"
         }
       ]
     },
     {
-      "name": "shared_functions",
-      "columns": [
-        {
-          "name": "id",
-          "type": "VARCHAR(50)",
-          "primary": true
-        },
-        {
-          "name": "code",
-          "type": "TEXT",
-          "nullable": false
-        },
-        {
-          "name": "language_id",
-          "type": "VARCHAR(50)",
-          "nullable": false
-        },
-        {
-          "name": "customizations",
-          "type": "JSONB",
-          "nullable": true
-        },
-        {
-          "name": "created_at",
-          "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "expires_at",
-          "type": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "name": "view_count",
-          "type": "INTEGER",
-          "default": 0,
-          "nullable": false
-        },
-        {
-          "name": "created_by_user_id",
-          "type": "UUID",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "unique": false,
-          "columns": [
-            "language_id"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "expires_at"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "created_at"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "created_by_user_id"
-          ]
-        }
-      ],
-      "foreignKeys": [
-        {
-          "column": "language_id",
-          "onDelete": "RESTRICT",
-          "references": "languages(id)"
-        },
-        {
-          "column": "created_by_user_id",
-          "onDelete": "SET NULL",
-          "references": "users(id)"
-        }
-      ]
-    },
-    {
-      "name": "user_activity",
+      "name": "biometric_keys",
       "columns": [
         {
           "name": "id",
@@ -561,79 +105,114 @@
           "primary": true
         },
         {
-          "name": "user_id",
+          "name": "device_id",
           "type": "UUID",
-          "nullable": true
-        },
-        {
-          "name": "action",
-          "type": "VARCHAR(50)",
           "nullable": false
         },
         {
-          "name": "resource_type",
-          "type": "VARCHAR(50)",
-          "nullable": true
+          "name": "biometric_type",
+          "type": "VARCHAR(20)",
+          "nullable": false
         },
         {
-          "name": "resource_id",
-          "type": "VARCHAR(100)",
-          "nullable": true
-        },
-        {
-          "name": "metadata",
-          "type": "JSONB",
-          "nullable": true
-        },
-        {
-          "name": "ip_address",
-          "type": "INET",
-          "nullable": true
-        },
-        {
-          "name": "user_agent",
+          "name": "public_key",
           "type": "TEXT",
-          "nullable": true
+          "nullable": false
         },
         {
           "name": "created_at",
           "type": "TIMESTAMP",
-          "default": "CURRENT_TIMESTAMP",
+          "default": "NOW()",
           "nullable": false
+        },
+        {
+          "name": "last_used",
+          "type": "TIMESTAMP",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "unique": true,
+          "columns": [
+            "device_id"
+          ]
+        }
+      ],
+      "foreignKeys": [
+        {
+          "column": "device_id",
+          "onDelete": "CASCADE",
+          "references": "mobile_devices(id)"
+        }
+      ]
+    },
+    {
+      "name": "offline_sync_log",
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "default": "gen_random_uuid()",
+          "primary": true
+        },
+        {
+          "name": "device_id",
+          "type": "UUID",
+          "nullable": false
+        },
+        {
+          "name": "action_type",
+          "type": "VARCHAR(50)",
+          "nullable": false
+        },
+        {
+          "name": "action_data",
+          "type": "JSONB",
+          "nullable": false
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "name": "synced",
+          "type": "BOOLEAN",
+          "default": "false",
+          "nullable": false
+        },
+        {
+          "name": "synced_at",
+          "type": "TIMESTAMP",
+          "nullable": true
         }
       ],
       "indexes": [
         {
           "unique": false,
           "columns": [
-            "user_id"
+            "device_id"
           ]
         },
         {
           "unique": false,
           "columns": [
-            "action"
+            "synced"
           ]
         },
         {
           "unique": false,
           "columns": [
-            "created_at"
-          ]
-        },
-        {
-          "unique": false,
-          "columns": [
-            "user_id",
-            "created_at"
+            "timestamp"
           ]
         }
       ],
       "foreignKeys": [
         {
-          "column": "user_id",
-          "onDelete": "SET NULL",
-          "references": "users(id)"
+          "column": "device_id",
+          "onDelete": "CASCADE",
+          "references": "mobile_devices(id)"
         }
       ]
     }

@@ -1,24 +1,15 @@
 {
-  "caching": "Redis for session management, rate limiting, and function generation cache",
-  "pattern": "REST API with PostgreSQL and Redis",
-  "database": "PostgreSQL 14+ for primary data storage",
-  "security": "HTTPS required, CORS configured, input validation, SQL injection prevention",
-  "framework": "Node.js with Express.js or Python with FastAPI",
-  "monitoring": "Application Performance Monitoring (APM) and logging",
-  "fileStorage": "S3-compatible storage for bulk exports and backups",
-  "scalability": "Horizontal scaling ready with stateless API design",
+  "caching": "Redis for sessions and push tokens",
+  "pattern": "REST API with PostgreSQL and mobile support",
+  "fileStorage": "S3-compatible for mobile assets",
+  "mobileStack": "React Native with native modules",
+  "offlineSupport": "SQLite local storage with sync",
   "recommendations": [
-    "Use connection pooling for database connections",
-    "Implement proper error handling middleware",
-    "Add comprehensive request/response logging",
-    "Use environment-based configuration",
-    "Implement health checks for dependencies",
-    "Add rate limiting middleware",
-    "Use content compression (gzip)",
-    "Implement proper CORS policies",
-    "Add request ID tracing",
-    "Use database migrations for schema changes",
-    "Implement proper backup and recovery procedures",
-    "Add monitoring and alerting for critical paths"
-  ]
+    "Implement exponential backoff for sync operations",
+    "Use certificate pinning for mobile API security",
+    "Implement proper key management for biometric auth",
+    "Add device fingerprinting for security",
+    "Consider using WebRTC for real-time features in mobile"
+  ],
+  "pushNotifications": "FCM for Android, APNs for iOS"
 }
